@@ -1,15 +1,15 @@
 function TakeInfoUser()
 {
-   let name,sex,age,email;
+   let fullName,sex,age,email;
 
    do{
-       name = prompt('Enter name:');
+    fullName = prompt('Enter full name:');
        sex = prompt('Enter sex:');
        age = prompt('Enter age:');
        email = prompt('Enter email:');
 
    }while(!confirm(`Your:\n` +
-                         `name: ${name}\n` +
+                         `name: ${fullName}\n` +
                          `sex: ${sex}\n` + 
                          `age: ${age}\n` +   
                          `email: ${email}\n` + 
@@ -20,8 +20,9 @@ function LuckyTicket()
 {
     const SHORT_NUMBER = 99999, LONG_NUMBER = 1000000;
 
+    while(true){
     let leftSum = 0,rightSum = 0;
-    let numberInput;
+    let numberInput = 0;
 
     do{
         numberInput = parseInt(prompt('Enter your six numbers:'));
@@ -45,6 +46,7 @@ let lossLastInt = 10;
         }      
     }while(!confirm(rightSum == leftSum?'Your number is lucky':'Your number is not lucky'));
 }
+}
 
 
 
@@ -52,11 +54,14 @@ let lossLastInt = 10;
 
 
 const ANSWER_YES = 1, ANSWER_NO = 0, HALF = 2;
-let end = 101, start = -1, middle = 50;
-let answerUser;
+
 
 function GuessNumber(){
      
+do{
+    let end = 101, start = -1, middle = 50;
+    let answerUser;
+
     do{
         answerUser = parseInt(prompt(`Is your number ${middle}?\nEnter\n'1' if yes\n'0' if no`));
 
@@ -94,6 +99,8 @@ function GuessNumber(){
 
     }while(true);
     alert(`Your number is ${middle}`);
+
+}while(confirm('Play again?'));
 }
 
 
@@ -104,9 +111,9 @@ function GuessNumber(){
 const SIZE_ARR_TEST = 3, COUNT_ANSWERS_BE_STOOL = 2;
 let quaestionArr =
 [
-    'Are you a stool??',  
-    'Do you think like a stool?',
-    'Are you sure not a stool?'
+    'Is he a stool??',  
+    'Does he think like a stool?',
+    'Is he sure not a stool?'
 ];
 
 let answersArr = new Array(SIZE_ARR_TEST);
@@ -119,7 +126,7 @@ function Test(){
 
     for(let i = 0; i < SIZE_ARR_TEST; i++){
        
-      answer = parseInt(prompt(` '1' is yes\n'0' is no\n${quaestionArr[i]}`));
+      answer = parseInt(prompt(`'1' is yes\n'0' is no\n${quaestionArr[i]}`));
 
       if(answer != ANSWER_NO && answer != ANSWER_YES || isNaN(answer)){
           alert('Uncorrent answer, try again');
@@ -134,20 +141,26 @@ function Test(){
 
     }
 
-   alert(isStool?'You are a stool':'You are not a stool');
+   alert(isStool?'He is a stool':'He is not a stool');
 }
 
 
 
 
 function EnterCorrectFullName(){
- let fullName = prompt('Enter Full name\nUse only letter, symbol "." and "space"');
 
-let corectSymbol = /[^A-Za-z. ]/
+    let corectSymbol = /[^A-Za-z. ]/
 
- if (corectSymbol.test(fullName)) 
-    alert('Uncorrect full name');
+    while(true){
 
+    
+        let fullName = prompt('Enter Full name\nUse only letter, symbol "." and "space"');
+
+        if (corectSymbol.test(fullName)) 
+            alert('Uncorrect full name');
+        else
+            alert('Correct full name');
+    }
 }
 
 
@@ -156,7 +169,7 @@ let corectSymbol = /[^A-Za-z. ]/
 let protocol,host,path,nameFile,lineQueastion;
 let webString;
 
-function SepareteString(newLine,separeteLine,addIndexSeek,addLengthSliceStart = 0,seekLastIndex = false){
+function SplitStrDelimiter(newLine,separeteLine,addIndexSeek,addLengthSliceStart = 0,seekLastIndex = false){
  
     if(seekLastIndex){
         newLine = webString.substring(0,webString.lastIndexOf(separeteLine) + addIndexSeek);
@@ -172,13 +185,13 @@ function SepareteString(newLine,separeteLine,addIndexSeek,addLengthSliceStart = 
  function SplitHttpAdress(webPathPtr){
     webString = webPathPtr;
 
-    protocol = SepareteString(protocol,'://', 1,1);
+    protocol = SplitStrDelimiter(protocol,'://', 1,1);
 
-    host = SepareteString(host,'/',0,1);
+    host = SplitStrDelimiter(host,'/',0,1);
 
-    path = SepareteString(path,'/',1,1,true);
+    path = SplitStrDelimiter(path,'/',1,1,true);
 
-    nameFile = SepareteString(nameFile,'?',0,0);
+    nameFile = SplitStrDelimiter(nameFile,'?',0,0);
 
     lineQueastion = webString;    
 
