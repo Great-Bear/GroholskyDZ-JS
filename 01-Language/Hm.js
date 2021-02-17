@@ -3,7 +3,7 @@ function TakeInfoUser()
    let fullName,sex,age,email;
 
    do{
-    fullName = prompt('Enter full name:');
+       fullName = prompt('Enter full name:');
        sex = prompt('Enter sex:');
        age = prompt('Enter age:');
        email = prompt('Enter email:');
@@ -28,7 +28,7 @@ function LuckyTicket()
         numberInput = parseInt(prompt('Enter your six numbers:'));
 
         if(numberInput <= SHORT_NUMBER || numberInput >= LONG_NUMBER || isNaN(numberInput)){
-            alert('Uncorrect input number, enter number again');
+            alert('Incorrect input number, enter number again');
             continue;
         }
 
@@ -44,7 +44,10 @@ let lossLastInt = 10;
 
                 leftSum += Math.trunc(numberInput / receiveLeftPart) % beforeLast;            
         }      
-    }while(!confirm(rightSum == leftSum?'Your number is lucky':'Your number is not lucky'));
+
+        confirm(rightSum == leftSum?'Your number is lucky':'Your number is not lucky')
+
+    }while(true);
 }
 }
 
@@ -66,7 +69,7 @@ do{
         answerUser = parseInt(prompt(`Is your number ${middle}?\nEnter\n'1' if yes\n'0' if no`));
 
         if(answerUser != ANSWER_YES && answerUser != ANSWER_NO || isNaN(answerUser)){
-            alert('You enter uncorrect answer, try again');
+            alert('You enter icorrect answer, try again');
             continue;
         }
         else if (answerUser == ANSWER_NO){
@@ -74,7 +77,7 @@ do{
                  answerUser = parseInt(prompt(`is your number more than ${middle}?\nEnter\n'1' if yes\n'0' if no`));
 
                     if(answerUser != ANSWER_YES && answerUser != ANSWER_NO || isNaN(answerUser)){
-                        alert('You enter uncorrect answer, try again');
+                        alert('You enter incorrect answer, try again');
                         continue;
                     }
 
@@ -129,7 +132,7 @@ function Test(){
       answer = parseInt(prompt(`'1' is yes\n'0' is no\n${quaestionArr[i]}`));
 
       if(answer != ANSWER_NO && answer != ANSWER_YES || isNaN(answer)){
-          alert('Uncorrent answer, try again');
+          alert('Incorrect answer, try again');
           i--;
           continue;
       }
@@ -157,7 +160,7 @@ function EnterCorrectFullName(){
         let fullName = prompt('Enter Full name\nUse only letter, symbol "." and "space"');
 
         if (corectSymbol.test(fullName)) 
-            alert('Uncorrect full name');
+            alert('Incorrect full name');
         else
             alert('Correct full name');
     }
@@ -169,7 +172,7 @@ function EnterCorrectFullName(){
 let protocol,host,path,nameFile,lineQueastion;
 let webString;
 
-function SplitStrDelimiter(newLine,separeteLine,addIndexSeek,addLengthSliceStart = 0,seekLastIndex = false){
+function SplitStrDelimiter(newLine,separeteLine,addIndexSeek = 0 ,addLengthSliceStart = 0,seekLastIndex = false){
  
     if(seekLastIndex){
         newLine = webString.substring(0,webString.lastIndexOf(separeteLine) + addIndexSeek);
@@ -185,13 +188,13 @@ function SplitStrDelimiter(newLine,separeteLine,addIndexSeek,addLengthSliceStart
  function SplitHttpAdress(webPathPtr){
     webString = webPathPtr;
 
-    protocol = SplitStrDelimiter(protocol,'://', 1,1);
+    protocol = SplitStrDelimiter(protocol,'://');
 
     host = SplitStrDelimiter(host,'/',0,1);
 
     path = SplitStrDelimiter(path,'/',1,1,true);
 
-    nameFile = SplitStrDelimiter(nameFile,'?',0,0);
+    nameFile = SplitStrDelimiter(nameFile,'?');
 
     lineQueastion = webString;    
 
