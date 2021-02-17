@@ -197,3 +197,41 @@ function SplitStrDelimiter(newLine,separeteLine,addIndexSeek,addLengthSliceStart
 
     alert(`Protocol: ${protocol}\nHost: ${host}\nPath: ${path}\nNameFile: ${nameFile}\nLineQueastin: ${lineQueastion}`);
  }
+
+ function CreateChessBoard(sizeY,sizeX){
+
+    const COLOR_RED = "red",COLOR_YELLOW = "yellow",
+             MARGIN_LEFT = 150, MARGIN_TOP = 150,
+               WIDTH = '150px', HEIDTH = '150px';
+           
+    let nextColor = COLOR_RED;
+       
+        for(let y = 0; y < sizeY; y++){
+    
+            for(let x = 0; x < sizeX ; x++){
+
+                document.write(`<div id=${y}/${x}></div>`);            
+                    document.getElementById(`${y}/${x}`).style.width = WIDTH;
+                        document.getElementById(`${y}/${x}`).style.height = HEIDTH;
+                            document.getElementById(`${y}/${x}`).style.marginLeft = `${MARGIN_LEFT * x}px`;
+    
+    
+               if(x != 0){
+                    document.getElementById(`${y}/${x}`).style.marginTop = `${-(MARGIN_TOP)}px`;
+                }
+  
+                if(nextColor == COLOR_RED){
+                    document.getElementById(`${y}/${x}`).style.background = COLOR_RED;
+                        nextColor = COLOR_YELLOW;
+                }
+                else{
+                    document.getElementById(`${y}/${x}`).style.background = COLOR_YELLOW;
+                        nextColor = COLOR_RED;
+                }
+            }
+            if(document.getElementById(`${y}/0`).style.getPropertyValue('background') == nextColor) {
+                nextColor == COLOR_RED? nextColor = COLOR_YELLOW : nextColor = COLOR_RED;
+            }
+        }
+     }
+    
