@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinamic list</title>
+    <script src="DinacimList.js"></script>
+    <link rel="stylesheet" href="Dinamiclist.css">
+</head>
+<body>
+    <div>
+    <input type="radio" name="group" class="radiobutton" >Add element in end list
+    <input type="texAddElemEnd" size="40"><br>
+
+    <input type="radio" name="group" value="opera">Insert element in list
+    <input type="texInsertElem" size="40"><br>
+
+    <input type="radio" name="group">Change text element list
+    <input type="textChangeTextElem" size="40"><br>
+
+    <input type="radio" name="group" >Add nested list
+    <input type="textNeatedList" size="40"><br>
+
+    <input type="radio" id="radDeleteElem" name="group">Delete elent list
+    <input type="textDeleteElem" size="40"><br></div>
+
+    <input type="button" id="butAddNewList" value="Add new list" onclick="CreateNewList()">
+    <ul>
+        <li>SDF
+            <ul>
+                
+            </ul>
+        </li>
+    
+    </ul>   
+
+</body>
+</html>
