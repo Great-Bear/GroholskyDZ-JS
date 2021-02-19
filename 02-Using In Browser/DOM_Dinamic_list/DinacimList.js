@@ -54,14 +54,15 @@ function CallOperation(event){
         event.target.parentNode.parentNode.append(lastitem);
                 break;
 
-        case  CHANGE_TEXT : '?'
+        case  CHANGE_TEXT : 
             event.target.textContent = changeElem.value;
                 break;
 
-        case  DELETE_ELEMENT :           
+        case  DELETE_ELEMENT : 
+                  
         if(event.target.parentNode.parentNode.children.length == 1)
             event.target.parentNode.parentNode.remove();
-       
+        else
             event.target.parentNode.remove();
 
             
