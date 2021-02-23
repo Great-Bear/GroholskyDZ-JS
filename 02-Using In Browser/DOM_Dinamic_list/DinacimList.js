@@ -14,12 +14,11 @@ function CreateNewList(){
     document.body.append(ul);
   
   ul.addEventListener('click',CallOperation);
-
 }
 
 function DefineOperation(){
     let numberOper = 0;
-    let a=0;
+    let a = 0;
     
     for (const tag of document.getElementsByName('group')) {
 
@@ -50,13 +49,10 @@ const CHANGE_TEXT = 2, DELETE_ELEMENT = 4, ADD_ELEMENT_END = 0, INSERT = 1, INSE
 
 function CallOperation(event){
     let numberOperation = DefineOperation();
- 
-
-    
+   
   if(numberOperation == -1)
     return;
     
-
     switch(numberOperation){
         case  ADD_ELEMENT_END : 
 
@@ -71,26 +67,24 @@ function CallOperation(event){
 
         case  DELETE_ELEMENT : 
                   
-        if(event.target.parentNode.parentNode.children.length == 1)
-            event.target.parentNode.parentNode.remove();
+            if(event.target.parentNode.parentNode.children.length == 1)
+                event.target.parentNode.parentNode.remove();
         else
             event.target.parentNode.remove();           
                 break;
 
         case  INSERT : 
-        let il = document.createElement('il');
-        il.innerHTML = `<li><span>${insertText.value}</span></li>`;
+            let il = document.createElement('il');
+            il.innerHTML = `<li><span>${insertText.value}</span></li>`;
 
-            event.target.parentNode.before(il);
+                event.target.parentNode.before(il);
         break;
 
         case  INSER_NEW_LIST : 
 
         for (const tag of event.target.parentNode.childNodes) {
-            if(tag.tagName == 'UL'){
-
-            
-            alert('list have list');
+            if(tag.tagName == 'UL'){            
+                 alert('list have list');
             return;
             }
             

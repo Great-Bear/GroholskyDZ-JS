@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Events.js"></script>
+    <title>Events</title> 
+</head>
+<body>
+    <ul onmouseover="hoverMouse()" onmouseout="outMouse()" > 
+        <li onclick="rearctClick(this)" >list one</li>
+
+           <ul>
+                <li onclick="rearctClick(this)" >list two</li>
+                    <ul>
+                        <li>list two</li>
+                        <li>list two</li>
+                        <li>list two</li>
+                        <li>list two</li>
+                    </ul>
+            </ul>
+
+            <ul>
+                <li onclick="rearctClick(this)" >list three</li>               
+                    <ul>
+                        <li>list two</li>
+                        <li>list two</li>
+                        <li>list two</li>
+                        <li>list two</li>
+                    </ul>
+            </ul>             
+    </ul>
+
+</body>
+</html>
