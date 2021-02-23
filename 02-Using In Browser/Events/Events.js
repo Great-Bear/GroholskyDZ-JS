@@ -10,10 +10,10 @@ function rearctClick(elem) {
 }
 
 function hoverMouse(){
-    event.target.style.fontWidth = 'bolder';
+    event.target.style.fontWeight  = "bolder";
 
 }
 
 function outMouse(){
-    event.target.style.fontWidth = 'normal';
+    event.target.style.fontWeight  = 'normal';
 }
