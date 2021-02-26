@@ -40,32 +40,24 @@ function HighlightLine(){
 
         for(let i = 0; i < event.target.parentNode.children.length; i++){
 
-            if(currentHightIndex != DEFAULT_INDEX && oldHightIndex != DEFAULT_INDEX){
-
-                if(oldHightIndex < currentHightIndex)
-                    direction = DIRECTION_UP;
-                else
-                    direction = DIRECTION_DOWN;
-
-                break;  
-            }      
-
             if(event.target == event.target.parentNode.children[i])
                 currentHightIndex = i;
             
             if(currentHighlightElem.elem == event.target.parentNode.children[i])
                 oldHightIndex = i;
-                         
+                              
+                if(currentHightIndex != DEFAULT_INDEX && oldHightIndex != DEFAULT_INDEX){
+                    oldHightIndex < currentHightIndex ? direction = DIRECTION_DOWN : direction = DIRECTION_UP; 
+                        break;  
+                }      
         }
 
      let item;
 
-   
-
-        if(direction)
-            item = currentHighlightElem.elem.nextElementSibling;
-        else
+        if(direction)    
             item = currentHighlightElem.elem.previousElementSibling;
+        else
+            item = currentHighlightElem.elem.nextElementSibling;
 
         while(true){
        
@@ -74,10 +66,10 @@ function HighlightLine(){
             if(item == event.target)
                 return;
 
-            if(direction)
-                item = item.nextElementSibling;
-            else
+            if(direction)                
                 item = item.previousElementSibling;
+            else
+                item = item.nextElementSibling;
         }
     }
 
@@ -85,14 +77,12 @@ function HighlightLine(){
     if(event.ctrlKey){
  
         targetStyle.backgroundColor == HIGHLIGHT_COLOR?
-         targetStyle.backgroundColor = NOT_DEFAULT_COLOR :
-         targetStyle.backgroundColor = HIGHLIGHT_COLOR;
-
+        targetStyle.backgroundColor = NOT_DEFAULT_COLOR :
+        targetStyle.backgroundColor = HIGHLIGHT_COLOR;
             return;
     }
-
-    for(item of document.getElementById('listBooks').childNodes)
-        if(item.nodeName == 'LI')
+    let listBooksChildren = document.getElementById('listBooks').children;
+    for(item of listBooksChildren )
             item.style.backgroundColor = NOT_DEFAULT_COLOR;
    
     currentHighlightElem.style =  targetStyle;
@@ -102,32 +92,49 @@ function HighlightLine(){
 }
 
 
+const MIN_WIDTH = 150, MIN_HEIGHT = 100;
+let startPosX,startPosY;
+let canChanPos = false;
 
 
+function StartMove(){
+    startPosX = event.pageX;
+    startPosY = event.pageY;
+    canChanPos = true;
+}
+
+function EndMove()
+{
+    canChanPos = false;
+}
+
+function ChangeSizeBlock(){
 
 
+    if(canChanPos){
+           
 
+      let newWidth = (event.pageX - startPosX);
+      let newHeight = (event.pageY - startPosY);
+         
+        if((mainBlock.clientWidth + newWidth) <= MIN_WIDTH ||
+           (mainBlock.clientHeight + newHeight) <= MIN_HEIGHT) return;
 
+       mainBlock.style.width = (mainBlock.clientWidth + newWidth) + 'px';
+       mainBlock.style.height = (mainBlock.clientHeight + newHeight) + 'px';
 
-/*if(event.shiftKey){
+       triangle.style.left = mainBlock.clientWidth - 25 + 'px';   
+       triangle.style.top = mainBlock.clientHeight - 25 + 'px';   
 
-    let a = event.target.parentNode.children;
+       backGround.style.width = (backGround.clientWidth + newWidth) + 'px';
+       backGround.style.height = (backGround.clientHeight + newHeight) + 'px';
 
-    for(b of a){
-        if(b == event.target)
-        alert(b.innerText);
+       startPosX = event.pageX;
+       startPosY = event.pageY;
     }
+   
 
-      let item = currentHighlightElem.elem.nextElementSibling;
+}
 
-  while(true){
-     
-          item.style.backgroundColor = 'orange';
 
-          if(item == event.target)
-          return;
 
-          item = item.nextElementSibling;
-
-      }
-  }*/
