@@ -59,8 +59,7 @@ function HighlightLine(){
         }
 
      let item;
-
-   
+ 
 
         if(direction)
             item = currentHighlightElem.elem.nextElementSibling;
