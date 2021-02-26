@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="Events.js"></script>
+    <link rel="stylesheet" href="Events.css">
     <title>Events</title> 
 </head>
-<body>
+<body  onmouseup="EndMove()" >
 
 <h2>Task One</h2>
 
@@ -48,6 +49,18 @@
         <li>Book 7</li>
         <li>Book 8</li>
     </ol>
+
+    <h2>Task Three</h2>
+
+<div id="backGround" onmouseup="EndMove()" >
+    <div id="mainBlock"  onmouseup="EndMove()"><p>fadsssssssssssssssssssssssssssssssssssssssssssssssssssssssafdsssssssssssssssssssssssss</p>
+        <div id="triangle" onmousedown="StartMove()"  onmousemove="ChangeSizeBlock()" onmouseout="ChangeSizeBlock()" onmouseup="EndMove()"  ></div>
+    </div>
+</div>
+
+
+
+
 
 </body>
 </html>
