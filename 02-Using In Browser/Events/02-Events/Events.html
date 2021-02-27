@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Events.js" ></script>
+    <link rel="stylesheet" href="Events.css">
+    <title>02-Events</title>
+</head>
+<body onload="listInfoStart()" >
+
+<h2>Task one</h2>
+   <div  id="EnterNameForm" >
+        <label for="inputName" >Enter your name (name can't contain digits)</label>
+            <input type="text" placeholder="Enter here" oninput="CheckCorrectInputName()" >
+   </div>
+
+<h2>Task Two</h2>
+
+<ul id="blockInfo" > 
+    <li onclick="rearctClick(this)"><span>list one</span>
+        <div>text1</div>
+    </li>
+
+    <li onclick="rearctClick(this)"><span>list two</span>
+        <div>text2</div>  
+    </li>
+
+    <li onclick="rearctClick(this)"><span>list three</span>
+        <div> text3</div>  
+    </li>
+</ul>
+
+
+
+</body>
+</html>

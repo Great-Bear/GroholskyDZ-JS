@@ -1,0 +1,58 @@
+body
+{
+    padding-left: 10px;
+}
+
+#EnterNameForm
+{
+    background-color:rgb(243, 224, 188);
+    width: 290px;
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+#EnterNameForm > label
+{
+    display: block;
+}
+
+
+#blockInfo
+{
+    list-style-type: none;
+    color: #f0f5f8;
+    user-select: none;
+}
+
+#blockInfo > li
+{
+    background-color: #528cba;
+    width: 600px;   
+    padding-top: 5px;
+    border: 3px solid black;
+    border-bottom: 1.5px solid black;
+
+}
+
+#blockInfo > li > div
+{
+ height: 150px;
+ width:  595px;
+ margin-top: 10px;
+ background-color: #b5dde7;
+ border-top: 3px solid black;
+ padding-left: 5px;
+ padding-top: 10px;
+}
+
+#blockInfo > li > span
+{
+padding-left: 10px;
+}
+#blockInfo > li:last-child
+{
+padding-top: 8px;
+border: 3px solid black;
+}
+
