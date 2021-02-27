@@ -1,0 +1,34 @@
+#bgroundDiv
+{
+    background-color: bisque;
+    border: 30px solid bisque;
+    width: 500px;
+}
+
+#bgroundDiv > span
+{
+    font-size:small;
+}
+#TextConteiner
+{
+    font-size: large;
+    word-wrap: break-word;
+    max-width: 500px;
+}
+
+#SortedTable
+{
+    border-collapse: collapse;
+}
+#SortedTable td
+{
+    text-align: center;
+    padding: 5px; 
+    border: 2px solid black; 
+}
+#SortedTable th
+{
+    text-align: center;
+    padding: 5px;
+    border: 2px solid black; 
+}
