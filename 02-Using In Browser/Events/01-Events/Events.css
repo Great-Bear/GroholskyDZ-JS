@@ -22,8 +22,8 @@
   }
     #triangle {
         position: absolute;
-        left: 375px;
-        top: 125px;
+        left: calc(inherit - 25px);
+        top: calc(inherit - 25px);
         width: 0ch;
         border-bottom: 25px solid #5bc0de;
         border-left: 25px solid transparent;

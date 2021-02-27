@@ -54,6 +54,11 @@ function HighlightLine(){
 
      let item;
 
+        if(direction)
+            item = currentHighlightElem.elem.nextElementSibling;
+        else
+
+
         if(direction)    
             item = currentHighlightElem.elem.previousElementSibling;
         else
@@ -113,7 +118,6 @@ function ChangeSizeBlock(){
 
     if(canChanPos){
            
-
       let newWidth = (event.pageX - startPosX);
       let newHeight = (event.pageY - startPosY);
          
@@ -122,9 +126,6 @@ function ChangeSizeBlock(){
 
        mainBlock.style.width = (mainBlock.clientWidth + newWidth) + 'px';
        mainBlock.style.height = (mainBlock.clientHeight + newHeight) + 'px';
-
-       triangle.style.left = mainBlock.clientWidth - 25 + 'px';   
-       triangle.style.top = mainBlock.clientHeight - 25 + 'px';   
 
        backGround.style.width = (backGround.clientWidth + newWidth) + 'px';
        backGround.style.height = (backGround.clientHeight + newHeight) + 'px';
