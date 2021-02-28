@@ -2,7 +2,6 @@
 let isDIV = true;
 const EDIT_TXT = 'KeyE', SAVE_TXT = 'KeyS';
 
-
 function ChanhgeContainer(){
 
 if(event.code == EDIT_TXT &&  event.ctrlKey)
@@ -24,43 +23,68 @@ if (event.code == SAVE_TXT &&  event.ctrlKey)
 }
 }
 
-
-function SortCol()
+let numberSortCol
+function TypeSort()
 {
-   let numberSortCol = ChoiceSortCol(event.target);
-   let arrDataCol = ChoiceDataCol(numberSortCol);
-   SorfArr(arrDataCol);
+   numberSortCol = ChoiceSortCol(event.target);
+   let arrDataCol = ChoiceDataTable();
+   SorfArr(arrDataCol,numberSortCol);
    ChangeTableData(arrDataCol,numberSortCol);
 
 }
 
-function ChoiceDataCol(idCol){
+let dataTR = {
+}
 
-    let dataCol = new Array();
+
+function ChoiceDataTable(){
+  
+    let dataTable = new Array();
 
     for(item of SortedTable.firstElementChild.children){
 
+    if(item.id == 'nameCol') continue;
+
         if(item.nodeName == 'TR'){
+
             let index = 0;
+                let dataRow = Array();
 
-            if(item.id == 'nameCol') continue;
-
-                for(itemTR of item.children){
-
-                    if(index == idCol) {
-                        dataCol.push(itemTR.textContent);
-                        break;
-                    }               
-                    index++;
-                }
+                    for(itemTR of item.children){              
+                        dataRow.push(itemTR.textContent);                           
+                        index++;
+                    }
+                dataTable.push(dataRow);
         }
     }
-    return dataCol;
+    return dataTable;
 }
 
-function SorfArr(dataCol){
- //   dataCol.sort((a,b) => {return b - a});
-    dataCol.sort();
+function CompareString(a,b){
+
+    var nameA = a[numberSortCol].toLowerCase(), nameB = b[numberSortCol].toLowerCase()
+
+    if (nameA < nameB) 
+    return -1
+    if (nameA > nameB)
+    return 1
+        return 0 
+    };
+
+function CompareDigits(a,b){
+    return a[numberSortCol] - b[numberSortCol];
+}
+
+const SORT_DIGITS = 2;
+
+function SorfArr(dataCol,numberSortCol){
+
+if(numberSortCol == SORT_DIGITS)
+    dataCol.sort(CompareDigits)
+    
+else
+    dataCol.sort(CompareString);
+
     return dataCol;
 }
 
@@ -79,25 +103,18 @@ let TmpFirstName,TmpLastName,TmpAge,TmpCompane;
 
 function ChangeTableData(dataCol,idCol){
 
-    let indexArr = 0;
-
+let indexRow = 0;
     for(item of SortedTable.firstElementChild.children){
     
+    if(item.id == 'nameCol') continue;
         if(item.nodeName == 'TR'){
-            let index = 0;
-          
-            if(item.id == 'nameCol') continue;
-    
-                for(itemTR of item.children){
-                    
-                    if(itemTr.textContent != dataCol[index])
-
-                      itemTR.textContent = dataCol[indexArr];
-                      indexArr++;
-                      index++;
-                      continue;             
-            }
-            index++;
+                  
+            let indexCol = 0;
+                for(itemTR of item.children){      
+                        itemTR.textContent = dataCol[indexRow][indexCol];
+                        indexCol++;
+                }
         }
+        indexRow++;
     }
 }
