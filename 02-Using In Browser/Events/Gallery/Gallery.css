@@ -1,0 +1,35 @@
+#Gallery
+{
+    padding: 20px;
+    height: 400px;
+    width: 690px;
+    background-color: wheat;
+    border: 10px dotted rgb(65, 236, 13);
+    border-radius: 50px;
+}
+
+
+#Gallery > img
+{
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+    color: rgb(25, 0, 255);
+    background-size: 100%;
+    border: 5px solid rgb(52, 211, 91);
+    border-radius: 40px;
+}
+#Gallery > img:hover
+{
+   border: 5px solid rgb(1, 97, 25);
+}
+
+#Gallery > :first-child
+{  
+    width: 315px;
+    height: 250px;
+    margin-left: 170px;
+    background-size: 100%;
+    border: 5px solid rgb(219, 79, 177)
+
+}
