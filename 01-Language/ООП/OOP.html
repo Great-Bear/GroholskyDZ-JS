@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="OOP.js" ></script>
+    <link rel="stylesheet" href="OOP.css">
+    <title>OOP</title>
+</head>
+<body>
+
+<div id="answerBlock">
+here will ba answers
+</div>
+
+<h2>Task One</h2>
+
+
+    <input type="text" id="day"  placeholder="Enter day" value="7">
+    <input type="text" id="month" placeholder="Enter month" value="3">
+
+    <div onclick="ShowdateStr(day.value,month.value)" id="DateStr"> 
+        <span>Click on me, and see the date </span>
+    </div>
+
+<h2>Task Two</h2>
+<div>
+</div>
+
+<input type="text" id="DateUser" value="December 17, 2022" placeholder="Enter Date" >
+
+<div id="checkDate" onclick="DateIsNotPast(new Date(`${DateUser.value}`))" >
+    <span>
+        click me and that check date
+    </span>
+</div>
+
+
+<h2>Task Three</h2>
+
+<input type="text" id="leapYear" value="2020" placeholder="Enter Year">
+
+<div id="LeapYearBlock" onclick="IsLeapYear(leapYear.value)">
+    <span>
+       click and check year is leap or not
+    </span>
+</div>
+
+</body>
+</html>

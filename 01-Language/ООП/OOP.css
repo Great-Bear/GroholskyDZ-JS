@@ -1,0 +1,36 @@
+div
+{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#DateStr
+{
+    width: 250px;
+    height: 100px;
+    background-color: rgb(88, 225, 230);
+}
+#checkDate
+{ 
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 250px;
+    height: 100px;
+    background-color: cornflowerblue;  
+}
+#answerBlock
+{
+    width: 300px;
+    height: 100px;
+    background-color: rgb(162, 240, 229);
+    float: right;
+    margin-right: 500px;
+    margin-top: 150px;
+}
+#LeapYearBlock
+{
+    width: 250px;
+    height: 100px;
+    background-color: rgb(88, 230, 88);
+}
