@@ -38,6 +38,21 @@ class ExtendedDate extends Date
      'eighteen',
      'nineteen',
  ]
+ static countDayMonth = [
+    0,
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    30,
+ ]
 
 
  GetMonthStr(index)
@@ -82,15 +97,34 @@ DateIsNotPast(dateInput){
     
     return true;
 }
+GetCountMonth(index){
+    if(!index) return;
 
+    if(index > 12) return;
+
+    return ExtendedDate.countDayMonth[index];
+}
 
 isLeapYear(year){
+
+ if(year <= 0) return 'Incorrect year';    
+    
 
  if( ((year % 4 == 0 && year % 100 !=0) || (year%400 == 0) ))
   return true;
 
   return false;
 }
+
+Nextdate(date)
+{
+
+    if(date.getDate() <  this.GetCountMonth(date.getMonth() + 1))
+        date.setDate(date.getDate() + 1);
+    else
+        return 'day in this month is max';
+}
+
 
 }
 
@@ -99,7 +133,6 @@ function ShowdateStr(day,month){
         let date = new ExtendedDate();
         answerBlock.textContent = date.GetDateStr(day,month); 
 }
-
 
 function DateIsNotPast(dateInput){
 
@@ -114,18 +147,85 @@ function DateIsNotPast(dateInput){
 }
     
 function IsLeapYear(year){
-    if(year <= 0){
-        answerBlock.textContent = 'Incorrect year';
-        return;
-    }
   
-
     let date = new ExtendedDate();
 
    if(date.isLeapYear(year))
         answerBlock.textContent = 'year is leap';
-    else
+   else
     answerBlock.textContent = 'yeal is not leap';
+
+}
+
+function TakeNextdate(dateInput){
+    let date = new ExtendedDate();
+
+    let nextDate = date.Nextdate(dateInput)
+
+   if(typeof nextDate == 'string') {
+        answerBlock.textContent = nextDate;
+        return;
+    }
+    
+    answerBlock.textContent = `${dateInput.getDate()} ${dateInput.getMonth() + 1} ${dateInput.getFullYear()}`
+}
+
+
+
+
+class ColorMarker{
+
+    static  #PRICE_SIMBOL = 0.5;
+  
+    static  get PRICE_SIMBOL(){
+        alert('prive');
+          return this.#PRICE_SIMBOL;
+      }
+
+    colorMarker;
+    countInk;
+
+
+      set ColorMarker(value){
+        colorMarker = value;
+      }
+      get ColorMarker(){
+          return colorMarker;
+      }
+
+ 
+    constructor(colMarker,countInk){
+
+        if(typeof colMarker != 'string') return 'color must be string';
+        
+        if(typeof countInk != 'number') return 'count ink must be number';
+
+        this.colorMarker = colMarker;
+        this.countInk = countInk;
+    }
+
+WriteColText(placePrint,textPrint){
+
+    let countSimbol = colMarkerText.value.length;
+
+    if(countSimbol > (this.countInk / this.PRICE_SIMBOL))
+        return 'Marker do not have such ink';
+
+    colorText.style.color = 'red';
+    placePrint.textContent = textPrint
+
+    this.countInk -= 0.5 * countSimbol;
+
+}
+}
+
+
+function PrintColorText(){
+
+    debugger;
+    let colorMarker = new ColorMarker('red',1);
+
+    colorMarker.WriteColText(colorText,colMarkerText.value);
 
 }
 
