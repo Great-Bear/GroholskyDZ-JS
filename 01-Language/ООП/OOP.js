@@ -2,6 +2,7 @@
 class ExtendedDate extends Date
 {
  static monthInString = [
+  'zero',
   'January',
   'February',
   'March',
@@ -60,7 +61,7 @@ class ExtendedDate extends Date
     if(index <= 0 || index > 12)
         return 'Incorrect month';
 
-    return ExtendedDate.monthInString[index - 1] + ' ';
+    return ExtendedDate.monthInString[index] + ' ';
 }
  GetDayStr(index)
  {
@@ -77,11 +78,13 @@ class ExtendedDate extends Date
         else
             return 'twenty ';
     }      
-    
-    if(index - 30)
-            return 'thirtieth-' + ExtendedDate.DayString[index - 30] + ' ';
-        else
-            return 'thirtieth ';
+    else if (index < 40)
+    {
+        if(index - 30)
+                return 'thirtieth-' + ExtendedDate.DayString[index - 30] + ' ';
+            else
+                return 'thirtieth ';
+    }
 }
 
  GetDateStr(day,month){
@@ -110,7 +113,7 @@ isLeapYear(year){
  if(year <= 0) return 'Incorrect year';    
     
 
- if( ((year % 4 == 0 && year % 100 !=0) || (year%400 == 0) ))
+ if( ((year % 4 == 0 && year % 100 !=0) || (year % 400 == 0) ))
   return true;
 
   return false;
@@ -178,54 +181,118 @@ class ColorMarker{
     static  #PRICE_SIMBOL = 0.5;
   
     static  get PRICE_SIMBOL(){
-        alert('prive');
           return this.#PRICE_SIMBOL;
       }
 
-    colorMarker;
-    countInk;
+    #colorMarker = 'none';
+        set ColorMar(value){
+            this.#colorMarker = value;
+        }
+        get ColorMar(){
+            return this.#colorMarker;
+        }
 
-
-      set ColorMarker(value){
-        colorMarker = value;
-      }
-      get ColorMarker(){
-          return colorMarker;
-      }
+    #countInk = 2;
+        set CountInk(value){
+            this.#countInk = value;
+        }
+        get CountInk(){
+            return this.#countInk;
+        }
 
  
-    constructor(colMarker,countInk){
-
+    constructor(colMarker){
         if(typeof colMarker != 'string') return 'color must be string';
-        
-        if(typeof countInk != 'number') return 'count ink must be number';
 
-        this.colorMarker = colMarker;
-        this.countInk = countInk;
+        this.ColorMar = colMarker;
+        this.CountInk = 2;
     }
 
 WriteColText(placePrint,textPrint){
+    let countSimbol = textPrint.value.length;
 
-    let countSimbol = colMarkerText.value.length;
+    if(countSimbol > (this.CountInk / ColorMarker.PRICE_SIMBOL))
+        return 'Marker don`t have ink';
 
-    if(countSimbol > (this.countInk / this.PRICE_SIMBOL))
-        return 'Marker do not have such ink';
+        let colorText = document.createElement('span');
+        colorText.style.color = this.ColorMar;
+        colorText.textContent = textPrint.value;
+        placePrint.appendChild(colorText);
 
-    colorText.style.color = 'red';
-    placePrint.textContent = textPrint
 
-    this.countInk -= 0.5 * countSimbol;
-
+    this.CountInk = this.CountInk - ColorMarker.PRICE_SIMBOL * countSimbol;
 }
 }
 
 
-function PrintColorText(){
+class PencilCase{
 
-    debugger;
-    let colorMarker = new ColorMarker('red',1);
+    markers = Array();
 
-    colorMarker.WriteColText(colorText,colMarkerText.value);
+AddNewMarker(marker){
+    this.markers.push(marker);
+}
 
+TakeMarker(id){
+    return this.markers[id];
+}
+
+}
+
+let pencileCase = new PencilCase();
+
+function CrateMarkers(arrColor){
+  
+for(color of arrColor){
+    pencileCase.AddNewMarker(new ColorMarker(color));
+}
+}
+
+
+function PrintColorText(idMarker){
+
+   let marker = pencileCase.TakeMarker(idMarker);
+    
+  answerBlock.textContent = marker.WriteColText(colorText,colMarkerText);
+
+}
+
+class Kernel{
+
+    value;
+    constructor(value){
+        this.value = value
+    }
+
+}
+
+class ColorMarkerPro extends ColorMarker{
+
+
+    RefuelMarker(kernel,count){
+        if(kernel.value - count < 0) {
+            return 'kernel don`t have such ink';
+        }    
+
+        if(Number(count) + Number(super.CountInk) > 100) {
+
+        return 'value ink can not be more 100';
+        }
+
+        super.CountInk += Number(count);
+
+        kernel.value -= count;
+    }
+
+}
+
+let proColorMark = new ColorMarkerPro(20);
+let kernel = new Kernel(200);
+
+function RefuelMark(kernel,count){
+
+
+   answerBlock.textContent = proColorMark.RefuelMarker(kernel,count);
+    valueProMark.textContent = proColorMark.CountInk;
 }
 

@@ -31,6 +31,9 @@ div
     background-color: rgb(162, 240, 229);
     display: table-cell;
     vertical-align: middle;
+    margin-left: 50%;
+
+    position: fixed;
 }
 #LeapYearBlock
 {
@@ -51,4 +54,10 @@ div
     max-width: 250px;
     background-color: rgb(231, 236, 205);
     word-wrap: break-word;
+}
+#proMarkBlock
+{
+    width: 250px;
+    height: 100px;
+    background-color: rgb(231, 236, 205);
 }
