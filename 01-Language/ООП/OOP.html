@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="OOP.js" ></script>
+    <script src="Js/Classes.js" ></script>
+    <script src="Js/OOP.js" ></script>
     <link rel="stylesheet" href="OOP.css">
     <title>OOP</title>
 </head>
-<body onload="CrateMarkers(['red','green','blue'])" >
+<body onload="CreteMarkers(['red','green','blue'])" onload="SetCountInk()" >
 
 <div id="answerBlock">
 here will ba answers
@@ -16,8 +17,10 @@ here will ba answers
 
 <h2>Task One</h2>
 
-
+    <span>day</span>
     <input type="text" id="day"  placeholder="Enter day" value="7">
+
+    <span>month</span>
     <input type="text" id="month" placeholder="Enter month" value="3">
 
     <div onclick="ShowdateStr(day.value,month.value)" id="DateStr"> 
@@ -60,11 +63,11 @@ here will ba answers
 
 <h2>Task colorMarker</h2>
 
-<input type="text" id="colMarkerText" value="t" placeholder="Enter text">
+<input type="text" id="colMarkerText" value="" placeholder="Enter text">
 <input type="text" id="idMarker" value="" placeholder="Enter id marker">
 
 <div id="colorTextBlock" onclick="PrintColorText(idMarker.value)" >
-<span id="colorText" ></span>
+<span id="colorText"></span>
 </div>
 
 <h2>Pro Marker</h2>
@@ -73,7 +76,7 @@ here will ba answers
 <input type="text" id="ProMarkValue" value="" placeholder="Enter value refuel mark">
 
 <div id="proMarkBlock" onclick="RefuelMark(kernel,ProMarkValue.value)" >
-    <span id="valueProMark">2</span>
+    <span id="valueProMark"> click that refuel marker </span>
 </div>
 
 

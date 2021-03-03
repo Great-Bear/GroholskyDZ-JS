@@ -1,5 +1,5 @@
 
-class ExtendedDate extends Date
+ class ExtendedDate extends Date
 {
  static monthInString = [
   'zero',
@@ -131,50 +131,6 @@ Nextdate(date)
 
 }
 
-function ShowdateStr(day,month){
-
-        let date = new ExtendedDate();
-        answerBlock.textContent = date.GetDateStr(day,month); 
-}
-
-function DateIsNotPast(dateInput){
-
-    let date = new ExtendedDate();
-
-  if(date.DateIsNotPast(dateInput))
-
-    answerBlock.textContent = 'Date is more than current or is current';
-  else
-    answerBlock.textContent = 'Date is past date';
-
-}
-    
-function IsLeapYear(year){
-  
-    let date = new ExtendedDate();
-
-   if(date.isLeapYear(year))
-        answerBlock.textContent = 'year is leap';
-   else
-    answerBlock.textContent = 'yeal is not leap';
-
-}
-
-function TakeNextdate(dateInput){
-    let date = new ExtendedDate();
-
-    let nextDate = date.Nextdate(dateInput)
-
-   if(typeof nextDate == 'string') {
-        answerBlock.textContent = nextDate;
-        return;
-    }
-    
-    answerBlock.textContent = `${dateInput.getDate()} ${dateInput.getMonth() + 1} ${dateInput.getFullYear()}`
-}
-
-
-
 
 class ColorMarker{
 
@@ -192,7 +148,7 @@ class ColorMarker{
             return this.#colorMarker;
         }
 
-    #countInk = 2;
+    #countInk = 50;
         set CountInk(value){
             this.#countInk = value;
         }
@@ -205,7 +161,7 @@ class ColorMarker{
         if(typeof colMarker != 'string') return 'color must be string';
 
         this.ColorMar = colMarker;
-        this.CountInk = 2;
+        this.CountInk = 50;
     }
 
 WriteColText(placePrint,textPrint){
@@ -224,50 +180,14 @@ WriteColText(placePrint,textPrint){
 }
 }
 
-
-class PencilCase{
-
-    markers = Array();
-
-AddNewMarker(marker){
-    this.markers.push(marker);
-}
-
-TakeMarker(id){
-    return this.markers[id];
-}
-
-}
-
-let pencileCase = new PencilCase();
-
-function CrateMarkers(arrColor){
-  
-for(color of arrColor){
-    pencileCase.AddNewMarker(new ColorMarker(color));
-}
-}
-
-
-function PrintColorText(idMarker){
-
-   let marker = pencileCase.TakeMarker(idMarker);
-    
-  answerBlock.textContent = marker.WriteColText(colorText,colMarkerText);
-
-}
-
-class Kernel{
-
-    value;
-    constructor(value){
-        this.value = value
-    }
-
-}
-
 class ColorMarkerPro extends ColorMarker{
 
+
+    constructor(color,display = undefined){
+        super(color);
+         if(display != undefined)
+            display.textContent = super.CountInk;
+    }
 
     RefuelMarker(kernel,count){
         if(kernel.value - count < 0) {
@@ -285,14 +205,25 @@ class ColorMarkerPro extends ColorMarker{
     }
 
 }
+class Kernel{
 
-let proColorMark = new ColorMarkerPro(20);
-let kernel = new Kernel(200);
+    value;
+    constructor(value){
+        this.value = value
+    }
 
-function RefuelMark(kernel,count){
-
-
-   answerBlock.textContent = proColorMark.RefuelMarker(kernel,count);
-    valueProMark.textContent = proColorMark.CountInk;
 }
 
+class PencilCase{
+
+    markers = Array();
+
+AddNewMarker(marker){
+    this.markers.push(marker);
+}
+
+TakeMarker(id){
+    return this.markers[id];
+}
+
+}
