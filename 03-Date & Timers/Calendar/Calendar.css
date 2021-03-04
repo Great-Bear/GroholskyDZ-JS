@@ -1,22 +1,13 @@
-#Calendar3
-{
-    user-select: none;
-    background-image: url(img/1.JPG) ;
-    background-size: cover;
-}
+
+
 span
 {
-    background-color: red;
+    color: blue;
     margin-left: 165px;
 }
 td
 {
     width: 50px;
     height: 50px;
-    text-align: center;  
-}
-
-#Calendar3 > td
-{
-    background-color: aliceblue;
+    text-align: center;
 }
