@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="Calendar.css" >
     <title>Calendar</title>
 </head>
-<body onload="InitCalnedar('nameMonth')" >
-    <table id="Calendar" onclick="Click()"> 
-        <span id="nameMonth" ></span>
-        <tr>
+<body onload="InitCalnedar('nameMonth')"  >
+    <span id="nameMonth"></span>
+    <table id="Calendar" onclick="SelectDate()">    
+        <tr id="nameMonthTR">
             <td>Пн</td>
             <td>Вт</td>
             <td>Ср</td>
@@ -20,7 +20,26 @@
             <td>Пт</td>
             <td>Сб</td>
             <td>Вс</td>
+        </tr>      
+        <tr>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
         </tr>
+        <tr>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+            <td>number</td>
+        </tr>
+        <br>
         <tr>
             <td>number</td>
             <td>number</td>
@@ -48,15 +67,7 @@
             <td>number</td>
             <td>number</td>
         </tr>
-        <tr>
-            <td>number</td>
-            <td>number</td>
-            <td>number</td>
-            <td>number</td>
-            <td>number</td>
-            <td>number</td>
-            <td>number</td>
-        </tr>
+
 
     </table>
 </body>

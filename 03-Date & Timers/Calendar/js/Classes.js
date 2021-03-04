@@ -52,7 +52,7 @@
     30,
     31,
     30,
-    30,
+    31,
  ]
 
 
@@ -225,5 +225,49 @@ AddNewMarker(marker){
 TakeMarker(id){
     return this.markers[id];
 }
+
+}
+
+class StateBool{
+    #stateOne;
+        set StateOne(value){
+            this.#stateOne = value;
+        }
+        get StateOne(){
+            return this.#stateOne;
+        }
+
+    #stateTwo;
+        set StateTwo(value){
+            this.#stateTwo = value;
+        }
+        get StateTwo(){
+            return this.#stateTwo;
+        }
+     
+    #currentState = 'none';
+        set CurrentState(value){
+            this.#currentState = value;
+        }
+        get CurrentState(){
+            this.ChangeState();
+            return this.#currentState;
+        }
+
+    constructor(stateOne,stateTwo){
+        this.StateOne = stateOne;
+        this.StateTwo = stateTwo;
+        this.CurrentState = stateOne;
+    }
+
+ChangeState(){
+    if(this.#currentState == this.StateOne){
+        this.CurrentState = this.StateTwo;
+    }
+    else{
+        this.CurrentState = this.StateOne;
+    }
+}
+
 
 }
