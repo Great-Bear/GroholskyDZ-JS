@@ -6,46 +6,38 @@ let firstNum = new StateBool(false,true);
 
 function InitClock(){
     SetTime();
-    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds);
+    date = new Date();
+    setInterval(ChangeTime,1000,'Seconds',date.getSeconds());
 }
-function ChangeTime(type,f){
-
-    alert(f());
-let date = new Date()
-let time;
-        if(type == 'Seconds'){
-            time = date.getSeconds();
-        }
-        else if(type == 'Minuts'){
-            time = date.getMinutes();
-        }
-        else if(type == 'Hours'){
-            time = date.getHours();
-        }
+function ChangeTime(type,time){
+let date = new Date();
+    if(type == 'Seconds'){
+        time = date.getSeconds();
+    }
     for(item of Clock.children){
         if(item.className !='points'){                
             if(item.className == type){
                 if(firstNum.CurrentState){
-                    item.src = `img/${TakeLeftInt(time)}.gif`;
+                    item.src = `img/${TakeLeftInt(time)}.gif`;              
                 }
                 else{
-                   item.src = `img/${TakeRightInt(time)}.gif`;       
+                  item.src = `img/${TakeRightInt(time)}.gif`;                         
                 }
             }
         }  
     }
     if(currentMinuts != date.getMinutes()){
-        ChangeTime('Minuts');
+        currentMinuts = date.getMinutes();  
+        ChangeTime('Minuts',currentMinuts);
     }
     if(currentHours != date.getHours()){  
-        currentMinuts = date.getMinutes();     
-        UpdateHours('Hours');      
+        currentHours = date.getHours();       
+        UpdateHours('Hours',currentHours);      
     }
 }
 
 function SetTime(){
-    let date = new Date();
-
+let date = new Date();
 let firstNum = new StateBool(false,true);
 
     for(item of Clock.children){
@@ -75,7 +67,6 @@ let firstNum = new StateBool(false,true);
                 }
             }
         }
-
     }
 }
 
