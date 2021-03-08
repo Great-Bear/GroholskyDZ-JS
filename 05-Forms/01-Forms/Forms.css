@@ -1,0 +1,85 @@
+#mainBlock
+{
+    background-color: blanchedalmond;
+    padding: 15px;
+    width: 700px;
+    height: 200px;
+}
+#mainBlock > *
+{
+margin-left: 5px;
+}
+#mainBlock > button
+{
+    margin-left: 15px;
+    width: 120px;
+}
+#mainBlock > hr
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#ticketsNum > tbody > tr:nth-child(odd) > td:nth-child(odd)
+{
+border-right: 1px solid black;
+border-bottom: 1px solid black;
+border-left:  2px solid black;
+border-top:  2px solid black;
+    width: 40px;
+}
+#ticketsNum > tbody > tr:nth-child(odd) > td:nth-child(even)
+{
+    border-right: 2px solid black;
+    border-bottom: 1px solid black;
+    border-left:  1px solid black;
+    border-top:  2px solid black;
+    width: 40px;
+}
+
+#ticketsNum > tbody > tr:nth-child(even) > td:nth-child(odd)
+{
+border-right: 1px solid black;
+border-bottom: 2px solid black;
+border-left:  2px solid black;
+border-top:  1px solid black;
+    width: 40px;
+}
+#ticketsNum > tbody > tr:nth-child(even) > td:nth-child(even)
+{
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left:  1px solid black;
+    border-top:  1px solid black;
+    width: 40px;
+}
+#ticketsNum
+{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+}
+#totalBlock
+{
+    margin-top: 20px;
+    margin-right: 15px;
+    float: right;
+}
+#totalBlock > button
+{
+    margin-left: 10px;
+    width: 80px;
+}
+#myTicketsBlock > table
+{
+    border-collapse: collapse;
+}
+#myTicketsBlock > table > tbody > tr > td
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid black;
+}
+
+
