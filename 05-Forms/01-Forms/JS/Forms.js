@@ -23,10 +23,10 @@ function CreateTable(){
         mainBlock.removeChild(ticketsNum);
     }
 
-
     table = document.createElement('table');
     table.appendChild(document.createElement('tbody'));
     table.id = 'ticketsNum';
+    table.onclick = ShowPrice;
 
 
     if(countPlace.length > 2){
@@ -65,12 +65,11 @@ function InitLists(){
         SelectDate.appendChild(optDate);
     }
 
-    document.getElementById('SelectDirection').onchange = ChangeSelectDate;
+  //  document.getElementById('SelectDirection').onchange = ChangeSelectDate;
 //    ChangeSelectDate();
     totalPrice = totalPriceVal;
 }
 
-let totalPriceVal = 40;
 function ChangeSelectDate(){
 
     while (SelectDate.firstChild) {
@@ -84,7 +83,6 @@ function ChangeSelectDate(){
             SelectDate.appendChild(Option);
         }
     }
-    totalPrice.textContent = totalPriceVal;
 CreateTable();
 RefreshTickets();
 
@@ -105,26 +103,21 @@ function BuyBook(){
         for(itemTr of item.children){
             if(itemTr.firstChild.checked && itemTr.firstChild.disabled == false){
                 countChoicePlace++;
-                if(countChoicePlace >= 2){
-                    alert('Choice only one tickets');
-                    choicePlace.disabled = false;
-                    return;
-                }
                 choicePlace = itemTr.firstChild;
                 itemTr.firstChild.disabled = true;
-                numberPlace = itemTr.textContent;         
-                totalPrice.textContent += totalPriceVal;               
+                numberPlace = itemTr.textContent;                     
+            
+                for(item = 0; item < arrRice.ArrRice.length; item++){
+                    if(SelectDirection.value == arrRice.ArrRice[item].Direction){
+                    arrRice.ArrRice[item].places[numberPlace] = 1;
+                    }              
+                }
+                let newTickets = new Ticket(SelectDate.children[0].label,SelectDirection.value,numberPlace);
+                arrTickets.push(newTickets);
+                AddTickets(arrTickets[arrTickets.length - 1]);
             }
         }
-    }
-    for(item = 0; item < arrRice.ArrRice.length; item++){
-        if(SelectDirection.value == arrRice.ArrRice[item].Direction){
-           arrRice.ArrRice[item].places[numberPlace] = 1;
-        }
-    }
-    let newTickets = new Ticket(SelectDate.children[0].label,SelectDirection.value,numberPlace);
-    arrTickets.push(newTickets);
-    AddTickets(arrTickets[arrTickets.length - 1]);
+    } 
 }
 
 function RefreshTickets(){
@@ -156,3 +149,21 @@ function AddTickets(tickets){
     myTicketsTable.lastChild.appendChild(Tr);
 }
 
+function SearchPress(){
+    CreateTable();
+    RefreshTickets();
+    ChangeSelectDate();
+}
+
+const PRICE = 40;
+function ShowPrice(){
+    let countPlace = 0;
+    for(item of ticketsNum.firstChild.children){
+        for(itemTr of item.children){
+            if(itemTr.firstChild.checked){
+                countPlace++;
+            }
+        }
+    } 
+    totalPrice.firstChild.textContent = Number(countPlace * PRICE);
+}
