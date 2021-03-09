@@ -1,0 +1,14 @@
+#Obj
+{
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    transform: rotate(50px);
+}
+
+#Cor
+{
+    height: 0;
+    width: 0;
+    border: 10px solid black;
+}

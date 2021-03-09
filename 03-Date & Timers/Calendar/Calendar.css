@@ -1,0 +1,36 @@
+#Calendar
+{
+    margin-top: 10px;
+    background: url('img/2.JPG');
+    border-spacing: 0px;
+}
+#Calendar > tbody > tr > td
+{
+    width: 75px;
+    height: 50px;
+    text-align: center;
+    font-size: 30px;
+    border-bottom:  1.5px solid rgb(226, 210, 210);
+    border-right:  1.5px solid rgb(226, 206, 206);
+}
+#Calendar > tbody > tr > td:nth-last-child(-n + 2)
+{
+    color: red;
+}
+#nameMonthTR
+{
+    background-color: #fbbd02;
+}
+#nameMonthTR > td:nth-last-child(-n + 2)
+{
+    background-color:#f90226;
+}
+#nameMonth
+{
+    color: blue;
+    margin-left: 225px;
+    font-weight: 900;
+    font-size: x-large;
+}
+
+
