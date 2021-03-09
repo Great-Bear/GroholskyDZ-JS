@@ -6,11 +6,11 @@ let firstNum = new StateBool(false,true);
 
 function InitClock(){
     SetTime();
-    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds);
+    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds,date2);
 }
-function ChangeTime(type,f){
+function ChangeTime(type,f,v){
 
-    alert(f());
+    alert(v.f(v));
 let date = new Date()
 let time;
         if(type == 'Seconds'){
