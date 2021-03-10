@@ -3,7 +3,6 @@ let arrTickets = new Array();
 function InitPoolRice(){
     arrRice.ArrRice.push(new Rice('Lviv-Kiev',new Date(2012, 0, 1, 0, 0, 0, 0)));
     arrRice.ArrRice.push(new Rice('Kiev-Lviv',new Date(2011, 0, 1, 0, 0, 0, 0)));
-   
 }
 function CreateTable(){
     let countPlace;
@@ -14,28 +13,22 @@ function CreateTable(){
             arrPlace = arrRice.ArrRice[item].places;
         }
     }
-
-
     if(document.getElementById('ticketsNum') != undefined){  
         while (ticketsNum.firstChild) {
             ticketsNum.removeChild(ticketsNum.firstChild);
         }
         mainBlock.removeChild(ticketsNum);
     }
-
     table = document.createElement('table');
     table.appendChild(document.createElement('tbody'));
     table.id = 'ticketsNum';
     table.onclick = ShowPrice;
-
-
     if(countPlace.length > 2){
         let Tr = document.createElement('tr');
         table.firstChild.appendChild(Tr);
         let Tr2 = document.createElement('tr');
         table.firstChild.appendChild(Tr2);
     }
-
     for(let a = 1; a <= countPlace.length; a++){
         let Td = document.createElement('td');
         Td.innerHTML =`<td><input type="checkbox" class="input_data" name="tseremonii">${a}</td>`;
@@ -49,7 +42,6 @@ function CreateTable(){
         if(arrPlace[a] == 1){
             Td.firstChild.disabled = true;
         }
-
     }
     totalBlock.before(table);
 }
@@ -64,18 +56,14 @@ function InitLists(){
         optDate.textContent = TakeDateInt(arrRice.ArrRice[i].Date);
         SelectDate.appendChild(optDate);
     }
-
   //  document.getElementById('SelectDirection').onchange = ChangeSelectDate;
 //    ChangeSelectDate();
     totalPrice = totalPriceVal;
 }
-
 function ChangeSelectDate(){
-
     while (SelectDate.firstChild) {
         SelectDate.removeChild(SelectDate.firstChild);
       }
-
     for(item of arrRice.ArrRice){
         if(item.Direction == SelectDirection.value){
             let Option = document.createElement('option');
@@ -85,7 +73,6 @@ function ChangeSelectDate(){
     }
 CreateTable();
 RefreshTickets();
-
 }
 function TakeDateInt(date){
     let day = date.getDate();
@@ -94,11 +81,9 @@ function TakeDateInt(date){
     return (day + '.' + month +'.' + year);
 }
 function BuyBook(){
-
     let numberPlace;
     let countChoicePlace = 0;
     let choicePlace;
-
     for(item of ticketsNum.firstChild.children){
         for(itemTr of item.children){
             if(itemTr.firstChild.checked && itemTr.firstChild.disabled == false){
@@ -118,14 +103,12 @@ function BuyBook(){
             }
         }
     } 
+    totalPrice.firstChild.textContent = 0;
 }
-
 function RefreshTickets(){
-
     while (myTicketsTable.children[0].children.length != 1) {
         myTicketsTable.children[0].removeChild(myTicketsTable.children[0].lastChild);
       }
-
     for(tickets of arrTickets){
         if(tickets.Direction == SelectDirection.value){
             AddTickets(tickets);
@@ -150,11 +133,11 @@ function AddTickets(tickets){
 }
 
 function SearchPress(){
+    BookButton.disabled = false;
     CreateTable();
     RefreshTickets();
     ChangeSelectDate();
 }
-
 const PRICE = 40;
 function ShowPrice(){
     let countPlace = 0;

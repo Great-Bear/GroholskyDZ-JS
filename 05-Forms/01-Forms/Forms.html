@@ -9,7 +9,7 @@
     <script src="JS/Forms.js" ></script>
     <title>01-Forms</title>
 </head>
-<body onload="InitLists()" >
+<body onload="InitLists()">
     <div id="mainBlock">      
         <span>Direction:</span>
         <select id="SelectDirection">
@@ -18,11 +18,11 @@
         <span>Date:</span>
         <select id="SelectDate" >
         </select>
-    <button id="search" onclick="SearchPress()" >Search</button>
+    <button id="search" onclick="SearchPress()">Search</button>
         <hr>
 <div id="totalBlock">
     <span>Total price: <span id="totalPrice"><b>0</b></span></span>
-    <button onclick="BuyBook()">Book</button>
+    <button onclick="BuyBook()" disabled='false' id="BookButton" >Book</button>
 </div>
     </div>
 
@@ -37,6 +37,5 @@
     </tr>
 </table>
 </div>
-
 </body>
 </html>
