@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Froms.css">
+    <script src="Froms.js"></script>
+    <title>Forms</title>
+</head>
+<body>
+    <div id="registrBlock">
+        <p id="titleForm"><b>Registration</b></p>
+        <div>
+            <label for="login" class="typeDate">Login:</label>
+            <input type="text" name="login" placeholder="Enter login"> 
+        </div>
+        <div>
+            <label for="password" class="typeDate">Password:</label>
+            <input type="text" name="password" placeholder="Enter password"> 
+        </div>
+        <div>
+            <label for="confirmPasswd" class="typeDate">Confirm:</label>
+            <input type="text" name="confirmPasswd" placeholder="Confirm password"> 
+        </div>
+        <div>
+            <label for="fullName" class="typeDate">Full name:</label>
+            <input type="text" name="fullName" placeholder="Enter full name"> 
+        </div>
+
+        <div id="radioButtonBlock">
+            <div id="leftblock"> 
+                <label for="sex" class="typeDate">Sex:</label><br>
+            </div>
+            <div id="rightBlock">
+                <input type="radio" name="sex" >M
+                <br>
+                <input type="radio" name="sex" >W
+            </div>
+        </div>
+        <div id="checkBoxBlock">
+            <div id="leftblockCheckBoxs"> 
+                <label for="specialize" class="typeDate">Specialization:</label><br>
+            </div>
+            <div id="rightBlockCheckBoxs">
+                <input type="checkbox"> 
+                <br>      
+                <input type="checkbox">
+                <br>
+                <input type="checkbox">
+            </div>
+            <div id="textCheckBox">
+              <span>Designer</span> <br>  
+              <span>Programmer</span> <br>  
+              <span>Administration</span>
+            </div>
+        </div>
+        <div id="positionBlock">
+            <div id="leftblockPosition" > 
+                <label for="specialize" class="typeDate">Position:</label><br>
+            </div>
+            <div id="rightBlockPosition">
+              <select>
+                  <option selected hidden >------Choice------</option>
+                  <option>Director</option>
+                  <option>Project Manager</option>
+                  <option>Department head</option>
+                  <option>Programmer</option>
+                  <option>Designer</option>
+                  <option>Consultant</option>
+                  <option>Clerk</option>
+              </select>
+            </div>
+        </div>
+        <div id="buttons">
+            <hr>
+            <div>
+                <button onclick="CheckForm(registrBlock)">Check in</button>
+                <button onclick="Reset(registrBlock)">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">fsdafasdfsdfsdfasd</div>
+
+</body>
+</html>

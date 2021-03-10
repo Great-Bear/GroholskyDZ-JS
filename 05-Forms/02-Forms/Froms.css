@@ -1,0 +1,83 @@
+.typeDate
+{
+    font-weight: bold;
+}
+#titleForm
+{
+    margin-left: 30px;
+}
+#registrBlock
+{
+    margin-left: 50px;
+    float: left;
+}
+
+#registrBlock > div
+{
+    clear:both;
+    text-align:right;
+    margin-top: 5px;
+}
+#registrBlock > div > input
+{
+   border: 0.5px solid  rgb(116, 116, 240);
+   padding: 3px;
+}
+#radioButtonBlock > div
+{
+    float: left;
+}
+#leftblock
+{
+   margin-left: 45px;
+}
+#checkBoxBlock > div
+{
+    margin-top: 10px;
+    float: left;
+}
+#leftblockCheckBoxs
+{
+    margin-left: -20px;
+}
+#rightBlockCheckBoxs > input
+{
+    clear:both;
+    float: left;
+}
+#textCheckBox > span
+{
+  float: left;
+}
+#positionBlock > div
+{
+    margin-top: 10px;
+    float: left;
+}
+#leftblockPosition
+{
+    margin-left: 20px;
+}
+#buttons > hr
+{
+    margin-top: 40px;
+}
+#buttons > div
+{
+   float:none;
+   margin-right: 60px;
+}
+.block {
+    background-color:green;
+    position: fixed;
+    display: inline-block;
+    margin-left: 300px;
+    margin-top: 100px;
+   }
+   .block::after {
+    content: ''; 
+    position: absolute;
+    margin-left: ;
+    border: 9.2px solid transparent;
+    border-right: 20px solid green;
+   }
