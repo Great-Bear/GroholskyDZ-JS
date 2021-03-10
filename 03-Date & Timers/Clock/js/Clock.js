@@ -6,38 +6,22 @@ let firstNum = new StateBool(false,true);
 
 function InitClock(){
     SetTime();
-    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds,date2);
-}
-function ChangeTime(type,f,v){
-
-    alert(v.f(v));
-let date = new Date()
-let time;
-        if(type == 'Seconds'){
-            time = date.getSeconds();
-        }
-        else if(type == 'Minuts'){
-            time = date.getMinutes();
-        }
-        else if(type == 'Hours'){
-            time = date.getHours();
-        }
-    date = new Date();
-    setInterval(ChangeTime,1000,'Seconds',date.getSeconds());
+    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds);
 }
 function ChangeTime(type,time){
 let date = new Date();
     if(type == 'Seconds'){
-        time = date.getSeconds();
+       // time = date.getSeconds();
     }
     for(item of Clock.children){
         if(item.className !='points'){                
             if(item.className == type){
                 if(firstNum.CurrentState){
-                    item.src = `img/${TakeLeftInt(time)}.gif`;              
+                    debugger;
+                    item.src = `img/${TakeLeftInt(time())}.gif`;              
                 }
                 else{
-                  item.src = `img/${TakeRightInt(time)}.gif`;                         
+                  item.src = `img/${TakeRightInt(time())}.gif`;                         
                 }
             }
         }  
