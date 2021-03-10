@@ -1,14 +1,14 @@
-#Obj
+#obj
 {
     height: 100px;
     width: 100px;
     background-color: red;
-    transform: rotate(50px);
+    transform-origin: 0% 0%;
 }
-
 #Cor
 {
     height: 0;
     width: 0;
     border: 10px solid black;
 }
+

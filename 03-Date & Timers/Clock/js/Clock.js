@@ -1,29 +1,10 @@
 let date2 = new Date()
 let currentMinuts = date2.getMinutes();
 let currentHours = date2.getHours();
-
 let firstNum = new StateBool(false,true);  
-
 function InitClock(){
     SetTime();
-    setInterval(ChangeTime,1000,'Seconds',date2.getSeconds,date2);
-}
-function ChangeTime(type,f,v){
-
-    alert(v.f(v));
-let date = new Date()
-let time;
-        if(type == 'Seconds'){
-            time = date.getSeconds();
-        }
-        else if(type == 'Minuts'){
-            time = date.getMinutes();
-        }
-        else if(type == 'Hours'){
-            time = date.getHours();
-        }
-    date = new Date();
-    setInterval(ChangeTime,1000,'Seconds',date.getSeconds());
+    setInterval(ChangeTime,1000,'Seconds');
 }
 function ChangeTime(type,time){
 let date = new Date();
@@ -51,7 +32,6 @@ let date = new Date();
         UpdateHours('Hours',currentHours);      
     }
 }
-
 function SetTime(){
 let date = new Date();
 let firstNum = new StateBool(false,true);
