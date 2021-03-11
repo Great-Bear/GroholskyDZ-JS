@@ -39,7 +39,7 @@ function sendForm(container){
     }  
     ResetCheckFilds();
 }
-let inputDataUser = new String();
+let ginputDataUser = new String();
 function CheckForm(container){
     for(item of container.children){
         if(item.nodeName == 'DIV'){
@@ -54,7 +54,7 @@ function CheckForm(container){
                 }
                 else{
                     if(item.id != 'password' && item.id != 'confirmPasswd')
-                        inputDataUser += item.value + '/';
+                        ginputDataUser += item.value + '/';
                 }              
             }
             else if(item.type == 'password'){
@@ -64,7 +64,7 @@ function CheckForm(container){
                 }
                 else{
                     if(item.id != 'password' && item.id != 'confirmPasswd')
-                        inputDataUser += item.value + '/';
+                        ginputDataUser += item.value + '/';
                 }              
             }
             else if(item.type == 'radio'){
@@ -72,19 +72,19 @@ function CheckForm(container){
                  gChoiceRadio = true;
                  let sex;
                     if(item.nextSibling.data[0] == 'M'){
-                        inputDataUser += 'Man';
+                        ginputDataUser += 'Man';
                     }
                     else{
-                        inputDataUser += 'Women';
+                        ginputDataUser += 'Women';
                     }
-                 inputDataUser += '/';               
+                 ginputDataUser += '/';               
                 }                                
             }
             else if(item.type == 'checkbox'){
                 if(item.checked){
                  gCheckBox++;
                  if(gCheckBox == 1){
-                    inputDataUser += item.nextSibling.textContent + '/';
+                    ginputDataUser += item.nextSibling.textContent + '/';
                  }
                 }                                    
              }            
@@ -92,7 +92,7 @@ function CheckForm(container){
         if(item.nodeName == 'SELECT'){
             if(item.selectedIndex != 0){
                 gSelected = true;
-                inputDataUser += item.value + '/';
+                ginputDataUser += item.value + '/';
             }
         }
     }
@@ -123,8 +123,8 @@ function CreateMessageError(){
 function FillTable(){
 
     for(tr of tableData.firstElementChild.children){
-        let cutPartStr = inputDataUser.substring(0,inputDataUser.indexOf('/'));
+        let cutPartStr = ginputDataUser.substring(0,ginputDataUser.indexOf('/'));
         tr.children[1].textContent = cutPartStr;
-        inputDataUser = inputDataUser.replace(cutPartStr + '/','');
+        ginputDataUser = ginputDataUser.replace(cutPartStr + '/','');
     }
 }

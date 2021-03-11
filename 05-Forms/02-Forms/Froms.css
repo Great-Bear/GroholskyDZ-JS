@@ -84,3 +84,12 @@
       border: 1px solid green;
       width: 150px;
   }
+  #TaskTwo > h2
+  {
+    float:none;
+  }
+  #block2
+  {
+      float: none;
+      clear: both;
+  }
