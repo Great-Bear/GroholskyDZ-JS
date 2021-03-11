@@ -45,6 +45,10 @@
     clear:both;
     float: left;
 }
+#rightBlockCheckBoxs  > span
+{
+    float: left;
+}
 #textCheckBox > span
 {
   float: left;
@@ -67,17 +71,16 @@
    float:none;
    margin-right: 60px;
 }
-.block {
-    background-color:green;
-    position: fixed;
-    display: inline-block;
-    margin-left: 300px;
-    margin-top: 100px;
-   }
-   .block::after {
-    content: ''; 
-    position: absolute;
-    margin-left: ;
-    border: 9.2px solid transparent;
-    border-right: 20px solid green;
-   }
+
+   input:invalid {
+    border: 2px dashed red;
+  }
+  
+  input:valid {
+    border: 2px solid black;
+  }
+  #tableData > tbody > tr > td
+  {
+      border: 1px solid green;
+      width: 150px;
+  }

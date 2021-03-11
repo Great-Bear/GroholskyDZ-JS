@@ -13,19 +13,19 @@
         <p id="titleForm"><b>Registration</b></p>
         <div>
             <label for="login" class="typeDate">Login:</label>
-            <input type="text" name="login" placeholder="Enter login"> 
+            <input type="text" id="login" placeholder="Enter login"> 
         </div>
         <div>
             <label for="password" class="typeDate">Password:</label>
-            <input type="text" name="password" placeholder="Enter password"> 
+            <input type="password" id="password" placeholder="Enter password"> 
         </div>
         <div>
             <label for="confirmPasswd" class="typeDate">Confirm:</label>
-            <input type="text" name="confirmPasswd" placeholder="Confirm password"> 
+            <input type="password" id="confirmPasswd" placeholder="Confirm password"> 
         </div>
         <div>
             <label for="fullName" class="typeDate">Full name:</label>
-            <input type="text" name="fullName" placeholder="Enter full name"> 
+            <input type="text" id="fullName" placeholder="Enter full name"> 
         </div>
 
         <div id="radioButtonBlock">
@@ -43,17 +43,13 @@
                 <label for="specialize" class="typeDate">Specialization:</label><br>
             </div>
             <div id="rightBlockCheckBoxs">
-                <input type="checkbox"> 
+                <input type="checkbox"><span>Designer</span>
                 <br>      
-                <input type="checkbox">
+                <input type="checkbox"><span>Programmer</span>
                 <br>
-                <input type="checkbox">
+                <input type="checkbox"><span>Administration</span>
             </div>
-            <div id="textCheckBox">
-              <span>Designer</span> <br>  
-              <span>Programmer</span> <br>  
-              <span>Administration</span>
-            </div>
+ 
         </div>
         <div id="positionBlock">
             <div id="leftblockPosition" > 
@@ -75,13 +71,33 @@
         <div id="buttons">
             <hr>
             <div>
-                <button onclick="CheckForm(registrBlock)">Check in</button>
-                <button onclick="Reset(registrBlock)">Reset</button>
+                <button onclick="sendForm(registrBlock)">Check in</button>
+                <button onclick="ResetForm(registrBlock)">Reset</button>
             </div>
         </div>
     </div>
-
-    <div class="block">fsdafasdfsdfsdfasd</div>
+<table id="tableData" hidden>
+    <tr>
+        <td>Login</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Full name</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Sex</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Specialize</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Position</td>
+        <td></td>
+    </tr>
+</table>
 
 </body>
 </html>
