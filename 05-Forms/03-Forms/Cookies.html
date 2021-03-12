@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -22,7 +21,7 @@
             }
     </style>
 </head>
-<body onload ="ReadCookies()">
+<body onload="ReadCookies()" >
     <form name="frm1">
         <table class="form_holder1" cellspacing="1">
             <thead>
@@ -30,7 +29,7 @@
                     <td colspan="2" align="center">Регистрация на сервере:</td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbodyElem">
                 <tr>
                     <td>Логин:</td>
                     <td><input size="26" type="text" name="login" /></td>
@@ -104,5 +103,7 @@
             </tbody>
         </table>
     </form>
+    <input type="reset" value="showcookie" onclick="ReadCookies()" />
+    <input type="reset" value="deleCookie" onclick="deleteAllCookies()" />
 </body>
 </html>
