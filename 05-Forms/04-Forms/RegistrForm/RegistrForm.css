@@ -1,0 +1,34 @@
+#registBlock
+{
+    background-color: blanchedalmond;
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+} 
+#title
+{
+    text-align: center;
+    font-weight: 600;
+}
+#registForm label
+{
+    font-weight: 900;
+    font-size: 15px;
+}
+#registForm input
+{
+  width: 300px;
+}
+#registForm > div
+{
+    margin-top: 10px;
+}
+#registForm > button{
+    margin-top: 20px;
+    width: 310px;
+}

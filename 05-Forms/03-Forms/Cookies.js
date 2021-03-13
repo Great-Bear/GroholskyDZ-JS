@@ -1,11 +1,20 @@
 function CheckCorrectInputData(){
     let errMessage = '';
-    let passwd = document.getElementsByName('text_password1')[0];
-    let confPasswd = document.getElementsByName('text_password2')[0];
-    if(passwd != confPasswd){
-        errMessage += 'Password and confirm password is unlike';
+    let passwd = document.getElementsByName('text_password1')[0].value;
+    let confPasswd = document.getElementsByName('text_password2')[0].value;
+    if(passwd != confPasswd || passwd.length == 0){
+        errMessage += 'Password and confirm password is unlike\n';
     }
-    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    let patternEmail = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    if(!patternEmail.test(document.getElementsByName('e_mail')[0].value)){
+        errMessage += 'Incorrect Email\n';
+    }
+    let cInputArr = document.getElementsByTagName('input');
+    for(txtElem of cInputArr){
+        if(txtElem.type == 'text' && txtElem.value.length == 0){
+            errMessage += 'Not all field is full';
+        }
+    }  
     return errMessage;
 }
 

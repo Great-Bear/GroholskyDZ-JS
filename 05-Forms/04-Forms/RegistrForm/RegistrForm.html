@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="RegistrForm.css">
+    <script src="JS/Classes.js"></script>
+    <script src="JS/RegistrForm.js"></script>
+    <title>Registration form</title>
+</head>
+<body>
+    <div id="registBlock">
+        <p id="title">Registration</p>
+        <form id="registForm">
+            <div>
+                <label for="email">Email:</label>
+                <br>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div>
+                <label for="email">Password:</label>
+                <br>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <div>
+                <label for="confirmPsswd">Confirm:</label>
+                <br>
+                <input type="password" id="confirmPsswd" placeholder="Confirm password">
+            </div>
+            <button type="submit" onclick="return CheckInputDate()" >Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
