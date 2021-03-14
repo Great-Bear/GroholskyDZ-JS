@@ -1,0 +1,52 @@
+#userInfoBlock
+{
+    background-color:blanchedalmond;
+    width: 600px;
+    height: 290px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+button
+{
+    width:  533px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
+#userEmail
+{
+    float: right;
+    font-size: 13px;
+}
+#userEmail a
+{
+    color: blue;
+    font-size: 13px;
+    font-weight: 600;
+}
+#title
+{
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+#pullField > div
+{
+    float: left;
+    margin-left: 25px;
+    margin-top: 10px;
+    width: 250px;
+}
+#pullField input
+{
+  width: 250px;
+}
+#pullField select
+{
+  width: 250px;
+}

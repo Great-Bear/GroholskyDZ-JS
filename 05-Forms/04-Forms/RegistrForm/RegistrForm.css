@@ -28,7 +28,21 @@
 {
     margin-top: 10px;
 }
+#registForm > div > div 
+{
+    font-weight: 900;
+    font-size: 15px;
+    height: 20px;
+    background-color: red;
+    display: inline-block;
+}
 #registForm > button{
     margin-top: 20px;
     width: 310px;
+}
+.errLabel
+{
+    float: right;
+    text-align: right;
+    color: red;
 }
