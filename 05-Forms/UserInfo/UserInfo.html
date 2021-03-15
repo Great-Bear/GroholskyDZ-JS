@@ -8,9 +8,10 @@
     <script src="UserInfo.js"></script>
     <title>User info</title>
 </head>
-<body>
+<body onload="LoadCookie()"></body>>
     <div id="userInfoBlock">
-        <span id="userEmail">Hello name user blabla!<a href="/RegistrForm/RegistrForm.html">exit</a></span>
+        <form id="userInfoForm">
+        <span id="userEmail">Hello name user blabla!<a href="/RegistrForm/RegistrForm.html" onclick="RegisterAgain()">exit</a></span>
         <br>
         <hr>
         <p id="title">User info</p>
@@ -29,21 +30,22 @@
             </div>
             <div>
                 <label for="gander">Gander</label><br>
-               <select>
+                <select>
                     <option>Male</option>
                     <option>Female</option>
                </select>
             </div>
             <div>
-                <label for="firstName">First name</label><br>
-                <input type="text" id="firstName" placeholder="Enter first name">
+                <label for="phoneNum">Phone number</label><br>
+                <input type="text" id="phoneNum" placeholder="Enter phone number">
             </div>
             <div>
-                <label for="lastName">First name</label><br>
-                <input type="text" id="lastName" placeholder="Enter last name">
+                <label for="skepy">Skype</label><br>
+                <input type="text" id="skype" placeholder="Enter your skype">
             </div>
         </div>
         <button type="submit">Save</button>
+    </form>
     </div>
 
 </body>

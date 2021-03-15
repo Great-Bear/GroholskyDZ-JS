@@ -12,6 +12,21 @@ function CheckInputDate(){
   SaveUserData();
    return false;
 }
+function ChechUserInputDate(){
+   try{
+     // errFirstName.textContent = gCheckObj.CheckFirstName(firstName.value);
+     // errLasrName.textContent = gCheckObj.CheckLastName(lastName.value);
+     // errBirthDay.textContent = gCheckObj.CheckBirthDay('fsdafds');
+      errSelect.textContent = gCheckObj.CheckSelect(sexSelect.selectedIndex);
+     // errPhoneNum.textContent = gCheckObj.CheckNumberPhone(phoneNum.value);
+     // errSkype.textContent = gCheckObj.CheckSkype(skype.value);
+   }
+   catch(err){
+      alert(err);
+   }
+   SaveUserData();
+   return false;
+}
 function SaveUserData(){
    for(errLabel of document.getElementsByClassName('errLabel')){
       if(errLabel.textContent){
@@ -19,31 +34,46 @@ function SaveUserData(){
       }
    }
    for(inptElem of document.getElementsByTagName('input')){
-      document.cookie = `${inptElem.id}=${inptElem.value}${cSepareta}`;
+      document.cookie = `${inptElem.id}=${inptElem.value}`;
    }
+   alert(document.cookie);
+ //  document.cookie = `sexSelect=${sexSelect.selectedIndex}`;
+   alert(document.cookie);
+   CloseRegWin();
+   OpenUserBlock();
 }
 function LoadCookie(){
+   if(!document.cookie.length){
+      CloseUserInfoBlock();
+      OpenRegWin();
+      return;
+   }
+   else{
+      CloseRegWin();
+      OpenUserBlock();
+      userInfoBlock.hidden = false;
+   }
    let DataArr = document.cookie.split(cSeparete);
    let indexCook = 0;
    for(inptElem of document.getElementsByTagName('input')){
       if(inptElem.type == 'text'){
-         inptElem.value = DataArr[indexCook].substring(DataArr[indexCook].indexOf('=') + 1);
+         inptElem.value = DataArr[indexCook].substring(DataArr[indexCook].indexOf('=') + 1);       
       }
       else if(inptElem.type == 'password'){
          inptElem.textContent = DataArr[indexCook];
       }
       indexCook++;
    }
-   registBlock.hidden = true;
-   CloseRegWin();
-  // document.location.href = '/UserInfo.html';
+   sexSelect.selectedIndex = DataArr[indexCook];
+   registBlock.hidden = true; 
+   userName.textContent = `Hello ${DataArr[0].substring(DataArr[0].indexOf('=') + 1)}`;
 }
 function deleteCookie(name) {
-   var cookies = document.cookie.split(";");
-	for (var i = 0; i < cookies.length; i++) {
-		var cookie = cookies[i];
-		var eqPos = cookie.indexOf("=");
-		var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+   let cookies = document.cookie.split(";");
+	for (let i = 0; i < cookies.length; i++) {
+		let cookie = cookies[i];
+		let eqPos = cookie.indexOf("=");
+		let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
 		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
 		document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
@@ -52,4 +82,60 @@ function deleteCookie(name) {
    registForm.hidden = true;
    registBlock.style.width = 0;
    registBlock.style.padding = 0;
+ }
+ function OpenRegWin(){
+   registForm.hidden = false;
+   registBlock.style.width = 300 + 'px';
+   registBlock.style.paddingTop = 1 +'px';
+   registBlock.style.paddingLeft = 30 + 'px';
+   registBlock.style.paddingRight = 30 + 'px';
+   registBlock.style.paddingBottom = 20 + 'px';
+ }
+ function CloseUserInfoBlock(){
+   userInfoBlock.style.width = 0;
+   userInfoBlock.style.height = 0;
+   userInfoBlock.style.padding = 0;
+   userInfoForm.hidden = true;
+ }
+ function OpenUserBlock(){
+    LoadUserBlockData();
+   userInfoBlock.style.width = 600 + 'px';
+   userInfoBlock.style.height = 290 + 'px';
+   userInfoBlock.style.paddingLeft = 20 + 'px';
+   userInfoBlock.style.paddingRight = 20 + 'px';
+   userInfoBlock.style.paddingYop = 10 + 'px';
+   userInfoForm.hidden = false;
+   userName.textContent = `Hello ${email.value}!`;
+ }
+function LoadUserBlockData(){
+
+   let DataArr = document.cookie.split(cSeparete);
+   let indexCook = 0;
+
+   for(inptElem of document.getElementsByTagName('input')){
+      if(inptElem.type == 'text'){
+         inptElem.value = DataArr[indexCook].substring(DataArr[indexCook].indexOf('=') + 1);       
+      }
+      else if(inptElem.type == 'password'){
+         inptElem.textContent = DataArr[indexCook];
+      }
+      indexCook++;
+   }
+}
+ function ClearAllInput(){
+    for(itemInput of document.getElementsByTagName('input')){
+       if(itemInput.type == 'text'){
+          itemInput.value = '';
+       }
+       else{
+         itemInput.textContent = '';
+       }
+    }
+ }
+ function RegisterAgain(){
+   ClearAllInput();
+   deleteCookie();
+   CloseUserInfoBlock();
+   OpenRegWin(); 
+   return false;
  }

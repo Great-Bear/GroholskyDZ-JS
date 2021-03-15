@@ -1,14 +1,9 @@
 #registBlock
 {
     background-color: blanchedalmond;
-    width: 300px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 1px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 20px;
 } 
 #title
 {
@@ -45,4 +40,58 @@
     float: right;
     text-align: right;
     color: red;
+}
+#userInfoBlock
+{
+    background-color:blanchedalmond;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#userInfoBlock button
+{
+    width:  533px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
+#userEmail
+{
+    float: right;
+    font-size: 13px;
+}
+#userEmail a
+{
+    color: blue;
+    font-size: 13px;
+    font-weight: 600;
+}
+#title
+{
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+#pullField > div
+{
+    float: left;
+    margin-left: 25px;
+    margin-top: 10px;
+    width: 250px;
+}
+#pullField input
+{
+  width: 250px;
+}
+#pullField select
+{
+  width: 260px;
+  height: 22px;
+  
+}
+#userInfoForm label
+{
+    font-weight: 800;
+    font-size: 14px;
 }

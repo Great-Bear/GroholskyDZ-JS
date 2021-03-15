@@ -34,7 +34,58 @@
             <button type="submit" onclick="return CheckInputDate()" >Sign Up</button>
         </form>
     </div>
-    <button onclick="deleteCookie()">delete</button>
-    <a href="../UserInfo/UserInfo.html">afddsaasfsda</a>
+    <button onclick="deleteCookie()">delete Cookie</button>
+
+    <div id="userInfoBlock">
+        <form id="userInfoForm" >
+       <span id="userEmail"><span id="userName">Hello name user blabla!</span><a href="/RegistrForm/RegistrForm.html" onclick="return RegisterAgain()">exit</a></span>
+        <br>
+        <hr>
+        <p id="title">User info</p>
+        <div id="pullField">
+            <div>
+                <label for="firstName">First name</label>
+                <label for="firstName" id="errFirstName" class="errLabel"></label>
+                <br>
+                <input type="text" id="firstName" placeholder="Enter first name">
+            </div>
+            <div>
+                <label for="lastName">First name</label>
+                <label for="lastName" id="errLasrName" class="errLabel"></label>
+                <br>
+                <input type="text" id="lastName" placeholder="Enter last name">
+            </div>
+            <div>
+                <label for="birthDay">Year of birthday</label>
+                <label for="birthDay" id="errBirthDay" class="errLabel"></label>
+                <br>
+                <input type="text" id="birthDay" placeholder="Enter your Birth day">
+            </div>
+            <div>
+                <label for="gander">Gander</label>
+                <label id="errSelect" class="errLabel"></label>
+                <br>
+                <select id="sexSelect">
+                    <option hidden>--------------------Select sex-------------------</option>
+                    <option>Male</option>
+                    <option>Female</option>
+               </select>
+            </div>
+            <div>
+                <label for="phoneNum">Phone number</label>
+                <label for="phoneNum" id="errPhoneNum" class="errLabel"></label>
+                <br>
+                <input type="text" id="phoneNum" placeholder="Enter phone number">
+            </div>
+            <div>
+                <label for="skepy">Skype</label>
+                <label for="skype" id="errSkype" class="errLabel"></label>
+                <br>
+                <input type="text" id="skype" placeholder="Enter your skype">
+            </div>
+        </div>
+        <button type="submit" onclick="return ChechUserInputDate()">Save</button>
+    </form>
+    </div>
 </body>
 </html>

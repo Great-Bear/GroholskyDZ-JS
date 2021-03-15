@@ -48,5 +48,12 @@ button
 }
 #pullField select
 {
-  width: 250px;
+  width: 260px;
+  height: 22px;
+  
+}
+#userInfoForm label
+{
+    font-weight: 800;
+    font-size: 14px;
 }
