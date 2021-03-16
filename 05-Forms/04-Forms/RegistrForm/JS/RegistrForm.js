@@ -36,9 +36,7 @@ function SaveUserData(){
    for(inptElem of document.getElementsByTagName('input')){
       document.cookie = `${inptElem.id}=${inptElem.value}`;
    }
-   alert(document.cookie);
- //  document.cookie = `sexSelect=${sexSelect.selectedIndex}`;
-   alert(document.cookie);
+   document.cookie = `sexSelect=${sexSelect.selectedIndex}`;
    CloseRegWin();
    OpenUserBlock();
 }
