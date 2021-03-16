@@ -79,8 +79,8 @@ class CheckForm{
         if(!firstName){
             return 'first name can`t be empty';
         }
-        if(!this.PatrnFirtsName.test(firstName)){
-            return 'Incorrect email';
+        if(this.PatrnFirtsName.test(firstName)){
+            return 'Incorrect first name';
         }
         return '';
     }
@@ -88,8 +88,8 @@ class CheckForm{
         if(!lastName){
             return 'last name can`t be empty';
         }
-        if(!this.PatrnFirtsName.test(lastName)){
-            return 'Incorrect email';
+        if(this.PatrnFirtsName.test(lastName)){
+            return 'Incorrect last name';
         }
         return '';
     }
@@ -136,10 +136,13 @@ class CheckForm{
             return this.#numberPhone;
         }
     CheckNumberPhone(phone){
+        if(!phone.length){
+            return;
+        }
         if(!this.NumberPhone.test(phone)){
             return 'Incorrect number phone';
         }
-        if( !/(.*\d.*){2}$/.test(phone) || /(.*\d.*){5}/.test(phone)){
+        if(!/(.*\d.*){2}$/.test(phone) || /(.*\d.*){5}/.test(phone)){
             return 'count int must be 10-12';
         }
     }
