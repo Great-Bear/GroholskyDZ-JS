@@ -7,11 +7,13 @@ function CheckInputDate(){
       errConfirmPsswd.textContent = gCheckObj.CheckConfirmPsswd(password.value,confirmPsswd.value);
    }
    catch(err){
-     // alert(err);
+      alert(err);
    }
-   SaveUserData();
-   CloseRegWin();
-   OpenUserBlock();
+  let correctform = SaveUserData();
+  if(correctform){
+      CloseRegWin();
+      OpenUserBlock();
+  }
    return false;
 }
 function ChechUserInputDate(){
@@ -24,7 +26,7 @@ function ChechUserInputDate(){
       errSkype.textContent = gCheckObj.CheckSkype(skype.value);
    }
    catch(err){
-      //alert(err);
+      alert(err);
    }
    SaveUserData();
    return false;
@@ -39,6 +41,7 @@ function SaveUserData(){
       document.cookie = `${inptElem.id}=${inptElem.value}`;
    }
    document.cookie = `sexSelect=${sexSelect.selectedIndex}`;
+   return true;
 }
 function LoadCookie(){
    if(!document.cookie.length){

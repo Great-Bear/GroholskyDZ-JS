@@ -142,7 +142,7 @@ class CheckForm{
         if(!this.NumberPhone.test(phone)){
             return 'Incorrect number phone';
         }
-        if(!/(.*\d.*){2}$/.test(phone) || /(.*\d.*){5}/.test(phone)){
+        if(!/(.*\d.*){10}$/.test(phone) || /(.*\d.*){13}/.test(phone)){
             return 'count int must be 10-12';
         }
     }
