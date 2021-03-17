@@ -1,0 +1,10 @@
+#inpuNameBlock > input
+{
+    width: 250px;
+    float: left;
+}
+.errorMessage
+{
+    margin-left: 10px;
+    color: red;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head onload="onLoadFunc()">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="RegExps.css">
+    <script src="JS/Classes.js"></script>
+    <script src="JS/RegExps.js"></script>
+    <title>RegExps</title>
+</head>
+<body>
+    <div id="inpuNameBlock">
+        <label for="nameUser">Enter your name and initials</label>
+        <br>
+        <input type="text" id="nameUser">
+        <label class="errorMessage" id="errNameUser"></label> 
+        <br>      
+        <br>    
+        <button onclick="CheckName()">Check name</button>
+    </div>
+    <div id="inpuEmailBlock">
+        <label for="loginUser">Enter your name and initials</label>
+        <br>
+        <input type="text" id="emailUser">
+        <label class="errorMessage" id="errEmailUser"></label> 
+        <br>      
+        <br>    
+        <button onclick="CheckEmail()">Check email</button>
+    </div>
+</body>
+</html>
