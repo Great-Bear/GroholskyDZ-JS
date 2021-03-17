@@ -19,7 +19,7 @@ class CheckForm{
         this.#PatrnPasswd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,}$/;
         this.#PatrnFirtsName = /^[a-z]{1,20}$/;
         // this.#PatrnBirthDay = /19[0-9]{2}|20[0-9]{2}/;
-        this.#NumberPhone = /([0-9 ()-])/;;
+        this.#NumberPhone = /([0-9 ()-])/;
         this.#MinYearReg = 1900;
         this.#SMinLengthPsswd = 6;
         this.#PatrnSkype = /[^a-z0-9.-]/i;
@@ -139,10 +139,14 @@ class CheckForm{
         if(!phone.length){
             return;
         }
+        this.#NumberPhone = /([0-9 ()-])(.*\d.*){2}$|^(.*\d.*){4}$/;
+        /* if(!/(.*\d.*){2}$/.test(phone) || /(.*\d.*){4}/.test(phone)){
+             return 'count int must be 10-12';
+         }*/
         if(!this.NumberPhone.test(phone)){
             return 'Incorrect number phone';
-        }
-        if(!/(.*\d.*){10}$/.test(phone) || /(.*\d.*){13}/.test(phone)){
+        }    
+        else if(!this.NumberPhone.test(phone)){
             return 'count int must be 10-12';
         }
     }
