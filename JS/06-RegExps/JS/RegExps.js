@@ -11,3 +11,6 @@ function CheckName(event){
 function CheckEmail(event){
     errEmailUser.textContent = gPaternPool.CheckEmail(emailUser.value);
 }
+function CheckData(){
+    errDataUser.textContent = gPaternPool.CheckData(dataUser.value);
+}
