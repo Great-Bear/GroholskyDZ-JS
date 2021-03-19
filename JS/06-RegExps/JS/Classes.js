@@ -10,7 +10,8 @@ class PaternPoll{
             this.#ShortNamePatern = /^[А-Я]{1}[а-я]+[А-Я]{2}$/
         }
     #onlyLetterPartn = /[а-я]/i;
-    #bigFirstLetterParetn = /^[А-Я]{1}./;
+    #bigFirstLetterParetn = /^[А-Я]{1}.?/;
+    #initialEnd = /[А-Я]{2}$/;
     CheckShortName(name){
         if(!this.ShortNamePatern.test(name)){
             if(!this.#onlyLetterPartn.test(name)){           
@@ -19,8 +20,11 @@ class PaternPoll{
             else if(!this.#bigFirstLetterParetn.test(name)){
                 return 'first letter must be Big';
             }
-            else{
+            else if(!this.#initialEnd.test(name)){
                 return 'Initial is not correct'
+            }
+            else{
+                return 'Incorrect name';
             }          
         }
         return '';

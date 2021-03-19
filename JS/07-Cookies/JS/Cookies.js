@@ -32,17 +32,16 @@ const cAnswersArr2 =
 let gExam;
 function InitTest(){
    ShowHistory();
-
-        let test = new Test(cQuestinsArr,cAnswersArr);
-        let test2 = new Test(cQuestinsArr2,cAnswersArr2);
-        gExam = new Exam([test,test2]);
-   
+    let test = new Test(cQuestinsArr,cAnswersArr);
+    let test2 = new Test(cQuestinsArr2,cAnswersArr2);
+    gExam = new Exam([test,test2]); 
 }
 let gIdTest = 0;
 let gCurrentTest = undefined;
 const cTimePassExam = 9;
 let gSecondsLeft = cTimePassExam;
 let gNameParetn = /[a-z]/i;
+let gName;
 function CreateTest(){
     answerButt.hidden = false;
     startTestButt.hidden = true;
@@ -50,15 +49,15 @@ function CreateTest(){
     time.textContent = `Осталось: 10 секунд`;
     if(gIdTest == gExam.TestArr.length){
         clearInterval(grefreshIntervalId);   
-        let nameUser = 'name';
         let errMessage = '';
-        do{
-            nameUser = prompt('Enter yout name\nUser only letters' + errMessage,'name');
-            errMessage = '\nIncorrect name';
-        }while(!gNameParetn.test(nameUser));
-        
-        SaveCookies(nameUser);   
-        alert(`Поздравляю ${nameUser}, тест стан на ${gTotalResult} баллов из ${gMaxRightAnswer} попытка ${coutrPass}`);
+        if(!document.cookie){
+            do{
+                gName = prompt('Enter your name\nUser only letters' + errMessage,'name');
+                errMessage = '\nIncorrect name';
+            }while(!gNameParetn.test(gName));
+        }
+        SaveCookies(gName);   
+        alert(`Поздравляю ${gName}, тест стан на ${gTotalResult} баллов из ${gMaxRightAnswer} попытка ${coutrPass}`);
         time.textContent = '';
         numberTest.textContent = '';
         answerButt.hidden = true;
@@ -88,7 +87,6 @@ function CreateTest(){
         answerButt.before(block);
     }
     else{
-       // CalcResultCurrTest();
         return;
     }
     gIdTest++
@@ -97,26 +95,23 @@ function CreateTest(){
 }
 const cMaxCoutnPassExam = 5;
 let coutrPass = 1;
-function SaveCookies(nameUser){
+function SaveCookies(gName){
     for(item of document.cookie.split(';'))
     {         
-        let nameProperty = item.substring(0,item.indexOf('='));
-        if(nameProperty[0] == ' '){
-            nameProperty = nameProperty.substring(1,nameProperty.length);
-        }
+        let nameProperty = TakeNameCookie(item);
         if(nameProperty == 'coutrPass'){
-            coutrPass = item.substring(item.indexOf('=') + 1);
+            coutrPass = TakeValueCookies(item);
             coutrPass++
         }
     }
     CookiesDelete();
     if(coutrPass <= cMaxCoutnPassExam){
-        document.cookie = `name=${nameUser}`;
+        document.cookie = `name=${gName}`;
         document.cookie = `lastMark=${gTotalResult}`;
         document.cookie = `coutrPass=${coutrPass}`;
     }
     else{
-        alert('Soryy,but you sped all 5th attempts')
+        alert('Sorry,but you sped all 5th attempts')
     }
 }
 
@@ -129,7 +124,8 @@ function ShowHistory(){
     for(item of document.cookie.split(';')){
         let nameCookie = TakeNameCookie(item);
         if(nameCookie == 'name'){
-            message += `Hello ${TakeValueCookies(item)}`
+            gname = TakeValueCookies(item);
+            message += `Hello ${gname}`;
         }
         else if(nameCookie == 'lastMark'){
             coutrPass = TakeValueCookies(item);
@@ -207,8 +203,9 @@ function Restart(){
     gTotalResult = 0;
     gIdTest = 0;
     gMaxRightAnswer = 0;
+    let testBlock = document.getElementById(`testBlock${gIdTest}`);
+    document.body.removeChild(testBlock);
     if(ShowHistory()){
         CreateTest();
-    }
-   
+    } 
 }

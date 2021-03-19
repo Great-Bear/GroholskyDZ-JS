@@ -5,10 +5,10 @@ function onLoadFunc(){
 
 let gPaternPool = new PaternPoll();
 
-function CheckName(event){
+function CheckName(){
     errNameUser.textContent = gPaternPool.CheckShortName(nameUser.value);
 }
-function CheckEmail(event){
+function CheckEmail(){
     errEmailUser.textContent = gPaternPool.CheckEmail(emailUser.value);
 }
 function CheckData(){
