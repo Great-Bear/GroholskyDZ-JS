@@ -1,7 +1,20 @@
-#canvasElem
+#clockBlock
 {
-    height: 800px;
-    width: 800px;
-    border: 5px solid black;
-    margin: auto;
+    display:inline-block;
+    margin-left: 50px;
+}
+#canvasElem{
+    position: absolute;
+}
+#canvasSec
+{
+    position: absolute;
+}
+#canvasMin
+{
+    position: absolute;
+}
+#canvasHour
+{
+    position: absolute;
 }
