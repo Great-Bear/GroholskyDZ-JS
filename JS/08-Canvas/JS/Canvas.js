@@ -23,7 +23,9 @@ const cLengthArrowHourFactor = 4.2;
 let gArrWidthSec;
 let gArrWidthMin;
 let gArrWidthHour;
+document.addEventListener(`onresize `, PrintClock, false);
 function PrintClock(canvasElem){
+    canvasElem.getContext('2d').clearRect(0,0,1000,1000);
     let borderWidth = 10;
     let widthWindow = document.documentElement.clientWidth;
     let heightWindow = document.documentElement.clientHeight; 
