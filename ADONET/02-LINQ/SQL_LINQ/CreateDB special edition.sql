@@ -15,11 +15,11 @@ CREATE TABLE Workers
 )
 GO
 INSERT INTO Workers(Name,SurName,Patronymic,GotJob,QuitJob)
-VALUES('Лев','Толстой','Николаевич','20-03-2020','20-03-2021');
+VALUES('Лев','Толстой','Николаевич','03-20-2020','04-20-2021');
 	INSERT INTO Workers(Name,SurName,Patronymic,GotJob,QuitJob)
-	VALUES('Рэй ','Брэдбери ','Дууглас ','20-03-2021','20-03-2022');
+	VALUES('Рэй ','Брэдбери ','Дууглас ','03-20-2021','04-20-2022');
 		INSERT INTO Workers(Name,SurName,Patronymic,GotJob,QuitJob)
-		VALUES('Джон','Че́йни','Грииффит','20-03-2022','20-04-2023');
+		VALUES('Джон','Че́йни','Грииффит','03-20-2022','04-20-2023');
 GO
 CREATE TABLE DaysWork
 (
@@ -29,21 +29,21 @@ CREATE TABLE DaysWork
 )
 GO
 INSERT INTO DaysWork(Day,Id_Worker)
-VALUES('20-03-2020',1);
+VALUES('03-20-2020',1);
 	INSERT INTO DaysWork(Day,Id_Worker)
-	VALUES('1-04-2020',1);
+	VALUES('04-1-2020',1);
 		INSERT INTO DaysWork(Day,Id_Worker)
-		VALUES('10-04-2020',1);
+		VALUES('04-10-2020',1);
 INSERT INTO DaysWork(Day,Id_Worker)
-VALUES('20-03-2021',2);
+VALUES('03-20-2021',2);
 	INSERT INTO DaysWork(Day,Id_Worker)
-	VALUES('1-04-2021',2);
+	VALUES('04-1-2021',2);
 		INSERT INTO DaysWork(Day,Id_Worker)
-		VALUES('10-04-2021',2);
+		VALUES('04-10-2021',2);
 INSERT INTO DaysWork(Day,Id_Worker)
-VALUES('20-03-2022',3);
+VALUES('03-20-2022',3);
 	INSERT INTO DaysWork(Day,Id_Worker)
-	VALUES('1-04-2022',3);
+	VALUES('04-1-2022',3);
 		INSERT INTO DaysWork(Day,Id_Worker)
-		VALUES('10-04-2022',3);
+		VALUES('04-10-2022',3);
 GO
