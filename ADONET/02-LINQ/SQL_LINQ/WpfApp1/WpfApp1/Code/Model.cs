@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Linq;
@@ -45,6 +46,21 @@ namespace WpfApp1.Code
                 i++;
             }
             return result;
+        }
+
+        public List<string> FindAllWorkers() 
+        {
+            DataContext db = new DataContext(PathBD);
+            var worker = from row in db.GetTable<Worker>()
+                         select row;
+
+            List<string> WorkersSupname = new List<string>();
+            foreach (var item in worker)
+            {
+                WorkersSupname.Add(item.SurName);
+
+            }        
+            return WorkersSupname;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

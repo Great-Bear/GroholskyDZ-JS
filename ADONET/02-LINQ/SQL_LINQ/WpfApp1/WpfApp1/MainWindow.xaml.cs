@@ -19,8 +19,8 @@ namespace WpfApp1
             DataContext = new ViewModel();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
-        {      
-            ((ViewModel)DataContext).ShowActivityWorkers(searchWorker.Text);
+        {
+            ((ViewModel)DataContext).ShowActivityWorkers(searchWorker.Items[searchWorker.SelectedIndex].ToString());
         }
     }
 }
