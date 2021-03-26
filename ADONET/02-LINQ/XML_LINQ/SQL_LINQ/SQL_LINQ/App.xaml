@@ -1,7 +1,7 @@
-﻿<Application x:Class="WpfApp1.App"
+﻿<Application x:Class="SQL_LINQ.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WpfApp1"
+             xmlns:local="clr-namespace:SQL_LINQ"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
