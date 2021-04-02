@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhoneBook
 {
-    [Serializable]
     class PhoneBook1
     {
         public string PathFileContacs { get; set; } = "Contacts.FGB";

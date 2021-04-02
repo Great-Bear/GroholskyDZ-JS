@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Exam.css">
-    <script src="Exam.js"></script>
+    <script src="Classes/Figure.js"></script>
+    <script src="Classes/Figures.js"></script>
+    <script src="Classes/Game.js"></script>
+    <script src="Controller.js"></script>
+<!---->
+    <!--<script src="Exam.js"></script>-->
     <title>Tetris</title>
 </head>
-<body>
-    <div id="div1"></div>
-    <div id="div2"></div>
+<body onload="loadGame()" onkeydown="PressButton()">
+  <canvas id="fieldCanvas"></canvas>
 </body>
 </html>
