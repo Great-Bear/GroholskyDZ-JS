@@ -8,12 +8,27 @@
     <script src="Classes/Figure.js"></script>
     <script src="Classes/Figures.js"></script>
     <script src="Classes/Game.js"></script>
+    <script src="Classes/nextFigure.js"></script>
     <script src="Controller.js"></script>
-<!---->
-    <!--<script src="Exam.js"></script>-->
     <title>Tetris</title>
 </head>
 <body onload="loadGame()" onkeydown="PressButton()">
   <canvas id="fieldCanvas"></canvas>
+  <canvas id="nextFigure"></canvas>
+  <div id="userPanel">
+    <span id="Score">Score: 0</span>
+    <br>
+    <span id="TopScore">Top: 0</span>
+    <br>
+    <button id="RulesButton">Rules</button>
+    <button id="PlayButton">Play</button>
+    <button id="PauseButton">Pause</button>
+    <button id="RestartButton" hidden>Restart</button>
+    <button id="untiFocusButton" ></button>
+  </div>
+  <div id="messageBlock" hidden>
+    <p id="message"></p>
+  </div>
+ 
 </body>
 </html>

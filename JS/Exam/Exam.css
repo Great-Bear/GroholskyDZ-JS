@@ -1,0 +1,41 @@
+body
+{
+  background-color: rgb(227, 236, 227);
+}
+#fieldCanvas
+{
+  margin-left: 400px;
+}
+#nextFigure
+{
+  position: fixed;
+  margin-left: 4px;
+}
+#userPanel
+{
+  width: 80px;
+  height: 277px;
+  margin-top: -302px;
+  margin-left: 607px;
+  background-color: rgb(150, 236, 150);
+  padding: 10px;
+}
+#userPanel > button
+{
+  width: 60px;
+  margin-top: 10px;
+}
+#untiFocusButton
+{
+  position: fixed;
+  margin-left: 10000px;
+}
+#messageBlock{
+  width: 150px;
+  height: auto;
+  position: absolute;
+  background-color: rgb(167, 220, 241);
+  margin-top: -250px;
+  margin-left: 425px;
+  text-align: center;
+}
