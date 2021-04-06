@@ -185,7 +185,10 @@ class Tetris
         }
         Score.textContent = `Score:${this.countScore += 10}`;  
         if(this.countScore > this.topScore)
+        {
             document.cookie = `TopScore=${this.countScore}`;
+            TopScore.textContent = `Top:${this.countScore}`
+        }
     }
     RestartGame(){
         this.posDrawX = 3;
