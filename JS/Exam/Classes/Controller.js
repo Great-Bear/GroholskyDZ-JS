@@ -9,7 +9,7 @@ function loadGame(){
   nextFigure = new NextFigure(tetris.nextFigure,tetris.nextColor);
 
   RulesButton.addEventListener('click',()=>{
-        alert('A - move left\nD - move right\nS - increase fall rate \nSpace - rotate figure')
+        alert('A - move left\nD - move right\nnSpace - increase fall rate \S - rotate figure')
     });
   PlayButton.addEventListener('click',()=> {
         timer = setTimeout(StepFigure,speed);
@@ -17,6 +17,7 @@ function loadGame(){
         messageBlock.hidden = true;
         PlayButton.hidden = true;
         PauseButton.hidden = false;
+        ModeGame.hidden = true;
     });
     PauseButton.addEventListener('click',() => {
         messageBlock.hidden = false;
@@ -25,14 +26,30 @@ function loadGame(){
         PlayButton.hidden = false;
         PauseButton.hidden = true;
     });
-    RestartButton.addEventListener('click',() =>{
+    RestartButton.addEventListener('click',() => {
         messageBlock.hidden = true;      
         PauseButton.hidden = false;
         RestartButton.hidden = true;
+        ModeGame.hidden = true;
         tetris.RestartGame();
         untiFocusButton.focus();
         timer = setTimeout(StepFigure,speed);
-    });      
+    });   
+    ModeGame.addEventListener('click',() => {
+        if(IsHardMode.checked == true){
+            nextFigure.ClearCanvas();
+            tetris.reward = 20;          
+            untiFocusButton.focus();
+            ModeText.textContent = 'Mode: hard';
+        }
+        else{
+            nextFigure.DrawFigures();
+            tetris.reward = 10;          
+            untiFocusButton.focus();
+            ModeText.textContent = 'Mode: easy';
+        }
+        
+    })   
 }
 function StepFigure(){
     if(tetris.posDrawY != -1){
@@ -44,6 +61,7 @@ function StepFigure(){
         message.textContent = 'You lost press restart to replay';
         clearTimeout(timer);
         RestartButton.hidden = false;
+        ModeGame.hidden = false;
         PauseButton.hidden = true;
         return;
     }
@@ -56,7 +74,8 @@ function StepFigure(){
         tetris.TakeNewFigure();
         nextFigure.currentFigure = tetris.nextFigure;
         nextFigure.currecrColor = tetris.nextColor; 
-        nextFigure.DrawFigures();
+        if(IsHardMode.checked == false)
+            nextFigure.DrawFigures();
         speed = 600;
     } 
     else{
@@ -69,7 +88,7 @@ function StepFigure(){
 function PressButton(){
     if(PauseButton.hidden != true)
     {
-        if(event.code == 'KeyS'){
+        if(event.code == 'Space'){
                 speed = 100;      
         }
         else if(event.code == 'KeyD'){
@@ -90,7 +109,7 @@ function PressButton(){
                     }   
                     tetris.PrintFigure();                   
         }
-        else if(event.code == 'Space'){
+        else if(event.code == 'KeyS'){
                 if(tetris.posDrawY != -1){
                 
                 if(tetris.heightPlayField < tetris.posDrawY + tetris.currectFigure.width){ return}

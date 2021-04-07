@@ -19,6 +19,7 @@ class Tetris
     canvas;
     countScore = 0;
     topScore = 0;
+    reward = 10;
   
     constructor(figures){
        if(document.cookie.length){
@@ -183,7 +184,7 @@ class Tetris
                 }
             }
         }
-        Score.textContent = `Score:${this.countScore += 10}`;  
+        Score.textContent = `Score:${this.countScore += this.reward}`;  
         if(this.countScore > this.topScore)
         {
             document.cookie = `TopScore=${this.countScore}`;

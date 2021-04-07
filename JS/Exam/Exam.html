@@ -15,11 +15,20 @@
 <body onload="loadGame()" onkeydown="PressButton()">
   <canvas id="fieldCanvas"></canvas>
   <canvas id="nextFigure"></canvas>
-  <div id="userPanel">
+  <div id="userPanel">  
+      <span id="ModeText">Mode: easy</span>
+      <br>
+      <div id="ModeGame">
+          <input type="radio" name="ModeGame" id="IsHardMode"> hard
+          <br>
+          <input type="radio" name="ModeGame"  checked> easy
+          <br>
+      </div>
     <span id="Score">Score: 0</span>
     <br>
     <span id="TopScore">Top: 0</span>
     <br>
+    <input type="checkbox" hidden>
     <button id="RulesButton">Rules</button>
     <button id="PlayButton">Play</button>
     <button id="PauseButton" hidden>Pause</button>

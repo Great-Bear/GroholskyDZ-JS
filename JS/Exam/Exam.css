@@ -25,6 +25,10 @@ body
   width: 60px;
   margin-top: 10px;
 }
+#userPanel > input
+{
+ margin-left: 0px;
+}
 #untiFocusButton
 {
   position: fixed;
@@ -39,3 +43,4 @@ body
   margin-left: 425px;
   text-align: center;
 }
+

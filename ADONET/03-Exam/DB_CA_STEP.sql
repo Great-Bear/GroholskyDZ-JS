@@ -1,7 +1,7 @@
-CREATE DATABASE CA_STEP
+CREATE DATABASE CA_STEP2
 GO
 
-USE CA_STEP
+USE CA_STEP2
 
 CREATE TABLE Branches
 (
@@ -229,10 +229,10 @@ CREATE TABLE ProgressStudy
 (
 ID INT PRIMARY KEY IDENTITY,
 ID_Specialist INT REFERENCES Specialists (ID),
-ID_Subjects INT REFERENCES Subjects (ID),
 ID_Group INT REFERENCES NameGroups (ID),
+ID_Subjects INT REFERENCES Subjects (ID),
 CountHours INT CHECK(CountHours > 0)
-UNIQUE(ID_Specialist,ID_Subjects,ID_Group)
+UNIQUE(ID_Specialist,ID_Group)
 )
 GO
 
