@@ -19,8 +19,15 @@ INSERT INTO Branches(Country,City,Street)
 VALUES('Ukraine','Kiev','Sadovaya 12')
 INSERT INTO Branches(Country,City,Street)
 VALUES('Ukraine','Lviv','Sadovaya 10')
+INSERT INTO Branches(Country,City,Street)
+VALUES('Ukraine','Lviv1','Sadovaya 10')
+INSERT INTO Branches(Country,City,Street)
+VALUES('Ukraine','Lviv2','Sadovaya 10')
+INSERT INTO Branches(Country,City,Street)
+VALUES('Ukraine','Lviv3','Sadovaya 10')
 
 GO
+
 CREATE TABLE ContactsBranches
 (
 ID INT PRIMARY KEY IDENTITY,
