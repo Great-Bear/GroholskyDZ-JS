@@ -1,7 +1,7 @@
-CREATE DATABASE CA_STEP2
+CREATE DATABASE CA_STEP
 GO
 
-USE CA_STEP2
+USE CA_STEP
 
 CREATE TABLE Branches
 (
@@ -95,9 +95,9 @@ GO
 CREATE TABLE Specialists
 (
 ID INT PRIMARY KEY IDENTITY,
-ID_Branches INT REFERENCES Branches (ID) ON DELETE CASCADE,
-ID_Workers INT REFERENCES Workers (ID) ,
-ID_Position INT REFERENCES Position (ID),
+ID_Branches INT REFERENCES Branches (ID) ON DELETE CASCADE NOT NULL,
+ID_Workers INT REFERENCES Workers (ID)NOT NULL ,
+ID_Position INT REFERENCES Position (ID) NOT NULL,
 )
 GO
 
@@ -158,9 +158,9 @@ GO
 CREATE TABLE Courses
 (
 ID INT PRIMARY KEY IDENTITY,
-ID_NameCourse INT REFERENCES NameCourses (ID) ON DELETE CASCADE,
-ID_Subject INT REFERENCES Subjects (ID) ON DELETE CASCADE,
-CountHours INT CHECK(CountHours >= 0),
+ID_NameCourse INT REFERENCES NameCourses (ID) ON DELETE CASCADE NOT NULL,
+ID_Subject INT REFERENCES Subjects (ID) ON DELETE CASCADE NOT NULL,
+CountHours INT CHECK(CountHours >= 0) NOT NULL,
 Describe NVARCHAR(MAX)
 )
 GO
@@ -210,7 +210,7 @@ GO
 CREATE TABLE NameGroups
 (
 ID INT PRIMARY KEY IDENTITY,
-Name NVARCHAR(20) UNIQUE
+Name NVARCHAR(20) UNIQUE NOT NULL
 )
 GO
 INSERT INTO NameGroups(Name)
@@ -219,9 +219,9 @@ VALUES('Bak-01')
 CREATE TABLE Groups
 (
 ID INT PRIMARY KEY IDENTITY,
-ID_Client INT REFERENCES Clients (ID) ON DELETE CASCADE,
-ID_Course INT REFERENCES Courses (ID) ON DELETE CASCADE,
-ID_NameGroups INT REFERENCES NameGroups (ID) ON DELETE CASCADE,
+ID_Client INT REFERENCES Clients (ID) ON DELETE CASCADE NOT NULL,
+ID_Course INT REFERENCES Courses (ID) ON DELETE CASCADE NOT NULL,
+ID_NameGroups INT REFERENCES NameGroups (ID) ON DELETE CASCADE NOT NULL,
 )
 GO
 
@@ -235,20 +235,20 @@ VALUES(3,1,1)
 CREATE TABLE ProgressStudy
 (
 ID INT PRIMARY KEY IDENTITY,
-ID_Specialist INT REFERENCES Specialists (ID),
-ID_Group INT REFERENCES NameGroups (ID),
-ID_Subjects INT REFERENCES Subjects (ID),
-CountHours INT CHECK(CountHours > 0)
+ID_Specialist INT REFERENCES Specialists (ID) NOT NULL,
+ID_Group INT REFERENCES NameGroups (ID) NOT NULL,
+ID_Subjects INT REFERENCES Subjects (ID) NOT NULL,
+CountHours INT CHECK(CountHours >= 0) NOT NULL
 UNIQUE(ID_Specialist,ID_Group)
 )
 GO
 
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group)
-VALUES(2,2,1)
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group)
-VALUES(3,1,1)
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group)
-VALUES(4,3,1)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
+VALUES(2,2,1,0)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
+VALUES(3,1,1,10)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
+VALUES(4,3,1,24)
 
 
 

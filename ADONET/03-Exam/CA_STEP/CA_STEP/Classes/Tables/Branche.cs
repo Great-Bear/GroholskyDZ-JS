@@ -3,20 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
-    class Branche : ITable
+    public class Branche : ITable
     {
         public int ID { get; set; }
         [MaxLength(50)]
+        [Required]
         public string Country { get; set; }
         [MaxLength(50)]
+        [Required]
         public string City { get; set; }
         [MaxLength(50)]
+        [Required]
         public string Street { get; set; }
+        [NotMapped]
         public static List<string> NameColums { get; set; } =
                   new List<string> { "Country", "City", "Street" };
 
@@ -47,25 +52,31 @@ namespace CA_STEP.Classes.Tables
             }
             return " ";
         }
-        public void EditItem(object item,int idProp, string value)
+        public void EditItem(List<string> value)
         {
-            switch (idProp)
+            for (int i = 0; i < 3; i++)
             {
-                case (int)IndexProperty.Country:
-                    ((Branche)item).Country = value;
-                    break;
+                switch (i)
+                {
+                    case (int)IndexProperty.Country:
+                        Country = value[i];
+                        break;
 
-                case (int)IndexProperty.City:
-                    ((Branche)item).City = value;
-                    break;
+                    case (int)IndexProperty.City:
+                        City = value[i];
+                        break;
 
-                case (int)IndexProperty.Street:
-                    ((Branche)item).Street = value;
-                    break;
+                    case (int)IndexProperty.Street:
+                        Street = value[i];
+                        break;
 
+                }
             }
         }
-
+        public object CreateNewElem(List<string> value) 
+        {
+            return new Branche(value[0],value[1],value[2]);
+        }
         enum IndexProperty 
         {
             Country,

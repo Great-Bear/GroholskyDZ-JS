@@ -7,14 +7,18 @@ namespace CA_STEP.Classes.Tables
     interface ITable
     {
         public int ID { get; set; }
-        public static List<string> NameColums { get; set; }
 
-        public string TakeProperty(int idProp)
+        public string TakeProperty(int idProp);
+
+        public void EditItem(List<string> value);
+
+        public object CreateNewElem(List<string> value);
+
+        public static List<string> NameColums { get; set; } = new List<string> { "Name" };
+        public int TaleNum()
         {
-            return " ";
+            return 1;
         }
-        public void EditItem(object item,int idProp, string value) { }
-
 
     }
 }

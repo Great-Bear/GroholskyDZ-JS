@@ -2,34 +2,37 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
 using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
-    [Table("Position")]
-    class Position :  ITable
+    class Client : ITable
     {
         public int ID { get; set; }
-        [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
-        
         [Required]
-        [Column(TypeName = "money")]
-        public decimal RateHour { get; set; }
+        public string Name { get; set; }
+        [MaxLength(50)]
+        [Required]
+        public string SurName { get; set; }
+        [MaxLength(50)]
+        [Required]
+        public string Phone { get; set; }
+        [NotMapped]
+        public static List<string> NameColums { get; set; } =
+                  new List<string> { "Name", "SurName", "Phone" };
 
-        public Position()
+        public Client()
         {
 
         }
-        public Position(string name,decimal rateHour)
+        public Client(string name, string surName, string phone)
         {
             Name = name;
-            RateHour = rateHour;
+            SurName = surName;
+            Phone = phone;
         }
-        public static List<string> NameColums { get; set; } =
-                  new List<string> { "Name", "RateHour"};
+
         public string TakeProperty(int idProp)
         {
             switch (idProp)
@@ -37,14 +40,18 @@ namespace CA_STEP.Classes.Tables
                 case (int)IndexProperty.Name:
                     return Name;
 
-                case (int)IndexProperty.RateHour:
-                    return RateHour.ToString();
+                case (int)IndexProperty.SurName:
+                    return SurName;
+
+                case (int)IndexProperty.Phone:
+                    return Phone;
+
             }
             return " ";
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 switch (i)
                 {
@@ -52,20 +59,28 @@ namespace CA_STEP.Classes.Tables
                         Name = value[i];
                         break;
 
-                    case (int)IndexProperty.RateHour:
-                        RateHour = decimal.Parse(value[i]);
+                    case (int)IndexProperty.SurName:
+                        SurName = value[i];
                         break;
+
+                    case (int)IndexProperty.Phone:
+                        Phone = value[i];
+                        break;
+
                 }
             }
         }
         public object CreateNewElem(List<string> value)
-        {       
-            return new Position(value[0], decimal.Parse(value[1], NumberStyles.AllowDecimalPoint, CultureInfo.CreateSpecificCulture("en-GB")));
+        {
+            return new Branche(value[0], value[1], value[2]);
         }
+
+
         enum IndexProperty
         {
             Name,
-            RateHour,
+            SurName,
+            Phone,
         }
     }
 }
