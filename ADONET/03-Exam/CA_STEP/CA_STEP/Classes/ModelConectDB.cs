@@ -96,12 +96,19 @@ namespace CA_STEP.Classes
                 item.Load();
             }
 
-            /* var tasks = new List<Task>();
+         /*  var tasks = new List<Task>();
            foreach (var item in Tables)
            {               
               tasks.Add(item.LoadAsync());
            }
-           tasks.ElementAt(Tables.Count - 1).Wait();*/
+
+           for (int i = 0; i < tasks.Count; i++)
+           {
+               if(tasks[i].Status == TaskStatus.Running)
+               {
+                   i--;
+               }
+            }*/
         }
         public void Remove(int idTable, int idElem)
         {                   
@@ -127,7 +134,7 @@ namespace CA_STEP.Classes
                 Tables[idTable].Add(((ITable)Tables[idTable].Create()).CreateNewElem(values));              
                 SaveChanges();
             }
-            catch(DbUpdateException ex)
+            catch(DbUpdateException)
             {             
                 MessageBox.Show("non-existent index or input value must be unique");
                 CancelChanging();
