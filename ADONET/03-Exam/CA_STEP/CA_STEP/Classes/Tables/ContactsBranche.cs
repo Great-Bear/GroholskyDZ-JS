@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-
-
 namespace CA_STEP.Classes.Tables
 {
-    public class ContactsBranche :  ITable
+    public class ContactsBranche :  IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         public int ID_Branches { get; set; }
@@ -23,6 +22,15 @@ namespace CA_STEP.Classes.Tables
 
         [ForeignKey("ID_Branches")]
         public virtual Branche Branches { get; set; }
+        [NotMapped]
+        public string ID__Branche
+        {
+            get
+            {
+                return $"{Branches.Country} {Branches.City} {Branches.Street}";
+            }
+        }
+
         public ContactsBranche()
         {
 
@@ -34,12 +42,15 @@ namespace CA_STEP.Classes.Tables
             Phone = phone;
         }
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID_Branches", "Web_Site", "Phone" };
+                  new List<string> {"ID", "ID__Branche", "Web_Site", "Phone" };
 
         public string TakeProperty(int idProp)
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.ID_Branches:
                     return ID_Branches.ToString();
 
@@ -48,13 +59,21 @@ namespace CA_STEP.Classes.Tables
 
                 case (int)IndexProperty.Phone:
                     return Phone;
-
+            }
+            return " ";
+        }
+        public string TakeNavigationProperty(int idProp)
+        {
+            switch (idProp)
+            {
+                case (int)IndexNavigationProperty.ID__Branche:
+                    return ID__Branche.ToString();
             }
             return " ";
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 switch (i)
                 {
@@ -87,9 +106,15 @@ namespace CA_STEP.Classes.Tables
 
         enum IndexProperty
         {
+            ID,
             ID_Branches,
             Web_Site,
             Phone,
+        }
+        enum IndexNavigationProperty
+        {
+            ID,
+            ID__Branche,
         }
 
 

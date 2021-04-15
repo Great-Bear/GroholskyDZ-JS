@@ -220,16 +220,16 @@ CREATE TABLE Groups
 (
 ID INT PRIMARY KEY IDENTITY,
 ID_Client INT REFERENCES Clients (ID) ON DELETE CASCADE NOT NULL,
-ID_Course INT REFERENCES Courses (ID) ON DELETE CASCADE NOT NULL,
+ID_NameCourse INT REFERENCES NameCourses (ID) ON DELETE CASCADE NOT NULL,
 ID_NameGroups INT REFERENCES NameGroups (ID) ON DELETE CASCADE NOT NULL,
 )
 GO
 
-INSERT INTO Groups(ID_Client,ID_Course,ID_NameGroups)
+INSERT INTO Groups(ID_Client,ID_NameCourse,ID_NameGroups)
 VALUES(1,1,1)
-INSERT INTO Groups(ID_Client,ID_Course,ID_NameGroups)
+INSERT INTO Groups(ID_Client,ID_NameCourse,ID_NameGroups)
 VALUES(1,1,1)
-INSERT INTO Groups(ID_Client,ID_Course,ID_NameGroups)
+INSERT INTO Groups(ID_Client,ID_NameCourse,ID_NameGroups)
 VALUES(3,1,1)
 
 CREATE TABLE ProgressStudy
@@ -237,18 +237,18 @@ CREATE TABLE ProgressStudy
 ID INT PRIMARY KEY IDENTITY,
 ID_Specialist INT REFERENCES Specialists (ID) NOT NULL,
 ID_Group INT REFERENCES NameGroups (ID) NOT NULL,
-ID_Subjects INT REFERENCES Subjects (ID) NOT NULL,
+Subject NVARCHAR(50) NOT NULL,
 CountHours INT CHECK(CountHours >= 0) NOT NULL
 UNIQUE(ID_Specialist,ID_Group)
 )
 GO
 
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
-VALUES(2,2,1,0)
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
-VALUES(3,1,1,10)
-INSERT INTO ProgressStudy(ID_Specialist,ID_Subjects,ID_Group,CountHours)
-VALUES(4,3,1,24)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Group,Subject,CountHours)
+VALUES(2,1,'C++',0)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Group,Subject,CountHours)
+VALUES(3,1,'C#',10)
+INSERT INTO ProgressStudy(ID_Specialist,ID_Group,Subject,CountHours)
+VALUES(4,1,'JS',24)
 
 
 

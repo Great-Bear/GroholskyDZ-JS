@@ -6,8 +6,9 @@ using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
-    class Course : ITable
+    class Course : IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         public int ID_NameCourse { get; set; }
@@ -22,10 +23,27 @@ namespace CA_STEP.Classes.Tables
         public virtual NameCourse NameCourses { get; set; }
 
         [ForeignKey("ID_Subject")]
-        public virtual Subject Subjects { get; set; }
+        public virtual Subject Subjects { get; set; }      
+        [NotMapped]
+        public string ID__NameCourse
+        {
+            get
+            {
+                return $"{NameCourses.Name}";
+            }
+        }
+        [NotMapped]
+        public string ID__Subject
+        {
+            get
+            {
+                return $"{Subjects.Name}";
+            }
+        }
 
+        [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID_NameCourse", "ID_Subject", "CountHours", "Describe" };
+                  new List<string> { "ID", "ID__NameCourse", "ID__Subject", "CountHours", "Describe" };
 
         public Course()
         {
@@ -43,6 +61,9 @@ namespace CA_STEP.Classes.Tables
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.ID_NameCourse:
                     return ID_NameCourse.ToString();
 
@@ -56,11 +77,23 @@ namespace CA_STEP.Classes.Tables
                     return Describe;
 
             }
+            return "";
+        }
+        public string TakeNavigationProperty(int idProp)
+        {
+            switch (idProp)
+            {
+                case 1:
+                    return ID__NameCourse.ToString();
+
+                case 2:
+                    return ID__Subject.ToString();
+            }
             return " ";
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 switch (i)
                 {
@@ -90,6 +123,7 @@ namespace CA_STEP.Classes.Tables
 
         enum IndexProperty
         {
+            ID,
             ID_NameCourse,
             ID_Subject,
             CountHours,

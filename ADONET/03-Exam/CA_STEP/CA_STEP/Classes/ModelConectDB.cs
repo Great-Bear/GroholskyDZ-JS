@@ -31,8 +31,13 @@ namespace CA_STEP.Classes
         Groups,
         ProgressStudy,
     }
+    enum TypeSort : int 
+    {
+        OrderBy = 0,
+        OrderByDescending
+    }
 
-    class ModelConectDB : DbContext
+    class ModelConectDB : DbContext, INotifyPropertyChanged
     {
         public DbSet<Branche> Branches { get; set; }
         public DbSet<ContactsBranche> ContactsBranches { set; get; }
@@ -46,6 +51,9 @@ namespace CA_STEP.Classes
         public DbSet<NameGroup> NameGroups { set; get; }
         public DbSet<Group> Groups { set; get; }
         public DbSet<ProgressStudy> ProgressStudys { set; get; }
+
+        public ObservableCollection<object> CurrentList = new ObservableCollection<object>();
+
         public List<DbSet> Tables { set; get; } = new List<DbSet>();
         public List<string> NameTables { set; get; } = new List<string>();
         public List<List<string>> NameColums { set; get; } = new List<List<string>>();
@@ -96,6 +104,8 @@ namespace CA_STEP.Classes
                 item.Load();
             }
 
+            CurrentList = new ObservableCollection<object>(Branches.ToList());
+
          /*  var tasks = new List<Task>();
            foreach (var item in Tables)
            {               
@@ -116,6 +126,7 @@ namespace CA_STEP.Classes
             {
                 Tables[idTable].Remove(Tables[idTable].Find(idElem));
                 SaveChanges();
+                AllSelect(idTable);
             }
             catch (DbUpdateException)
             {
@@ -131,8 +142,9 @@ namespace CA_STEP.Classes
         {
             try
             {
-                Tables[idTable].Add(((ITable)Tables[idTable].Create()).CreateNewElem(values));              
+                Tables[idTable].Add(((IElementDB)Tables[idTable].Create()).CreateNewElem(values));              
                 SaveChanges();
+                AllSelect(idTable);
             }
             catch(DbUpdateException)
             {             
@@ -159,8 +171,9 @@ namespace CA_STEP.Classes
         {          
             try
             {
-                ((ITable)Tables[idTable].Find(idElem)).EditItem(values);
+                ((IElementDB)Tables[idTable].Find(idElem)).EditItem(values);
                 SaveChanges();
+                AllSelect(idTable);
             }
             catch (DbUpdateException)
             {
@@ -183,6 +196,54 @@ namespace CA_STEP.Classes
                 CancelChanging();
             }
         }
+        public void Where(int idTable, int idColumb, string value)
+        {
+
+            var list = Tables[idTable].ToListAsync().Result;
+            CurrentList = new ObservableCollection<object>(list.Where(a => ((IElementDB)a).Where(((IElementDB)a).TakeProperty(idColumb), value)));
+            if (CurrentList.Count == 0)
+            {
+                CurrentList = new ObservableCollection<object>(list.Where(a => ((IElementDB)a).Where(((IElementDB)a).TakeNavigationProperty(idColumb), value)));
+            }
+        }
+        public void Sort(int typeSort, int idProp)
+        {
+            switch (typeSort)
+            {
+                case (int)TypeSort.OrderBy:
+                    CurrentList = new ObservableCollection<object>(CurrentList.OrderBy(a => ((IElementDB)a).TakeProperty(idProp)).ToList());
+                    if(CurrentList.Count == 0)
+                    {
+                        CurrentList = new ObservableCollection<object>(CurrentList.OrderBy(a => ((IElementDB)a).TakeNavigationProperty(idProp)).ToList());
+                    }
+                    break;
+                case (int)TypeSort.OrderByDescending:
+                    CurrentList = new ObservableCollection<object>(CurrentList.OrderByDescending(a => ((IElementDB)a).TakeProperty(idProp)).ToList());
+                    break;
+                    
+            }
+        }
+        public void AllSelect(int idTable)
+        {
+            CurrentList = new ObservableCollection<object>(Tables[idTable].ToListAsync().Result);
+        }
+        public bool ExistsValue(int indexProperty, string value)
+        {
+            foreach (var item in CurrentList)
+            {
+                if (((IElementDB)item).TakeProperty(indexProperty).Contains(value,StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+                if (((IElementDB)item).TakeNavigationProperty(indexProperty).Contains(value, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         private void CancelChanging()
         {        
             foreach (var entry in ChangeTracker.Entries())
@@ -200,6 +261,12 @@ namespace CA_STEP.Classes
                         break;
                 }
             }           
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

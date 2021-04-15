@@ -6,11 +6,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace CA_STEP.Classes.Tables
 {
-    public class Branche : ITable
+    public class Branche : IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [MaxLength(50)]
         [Required]
@@ -23,11 +25,10 @@ namespace CA_STEP.Classes.Tables
         public string Street { get; set; }
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "Country", "City", "Street" };
+                  new List<string> {"ID","Country", "City", "Street" };
 
         public Branche()
         {
-
         }
         public Branche(string country,string city,string street)
         {
@@ -35,11 +36,13 @@ namespace CA_STEP.Classes.Tables
             City = city;
             Street = street;
         }
-
         public string TakeProperty(int idProp)
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.Country:
                     return Country;
 
@@ -77,8 +80,17 @@ namespace CA_STEP.Classes.Tables
         {
             return new Branche(value[0],value[1],value[2]);
         }
+        public bool Where(int idProp,string value)
+        {
+            if(TakeProperty(idProp) == value)
+            {
+                return true;
+            }
+            return false;
+        }
         enum IndexProperty 
         {
+            ID,
             Country,
             City,
             Street,

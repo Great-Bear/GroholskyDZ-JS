@@ -8,8 +8,9 @@ using System.Text;
 namespace CA_STEP.Classes.Tables
 {
     [Table("Position")]
-    class Position :  ITable
+    class Position :  IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         [MaxLength(50)]
@@ -29,11 +30,14 @@ namespace CA_STEP.Classes.Tables
             RateHour = rateHour;
         }
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "Name", "RateHour"};
+                  new List<string> { "ID","Name", "RateHour"};
         public string TakeProperty(int idProp)
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.Name:
                     return Name;
 
@@ -48,6 +52,7 @@ namespace CA_STEP.Classes.Tables
             {
                 switch (i)
                 {
+
                     case (int)IndexProperty.Name:
                         Name = value[i];
                         break;
@@ -64,6 +69,7 @@ namespace CA_STEP.Classes.Tables
         }
         enum IndexProperty
         {
+            ID,
             Name,
             RateHour,
         }

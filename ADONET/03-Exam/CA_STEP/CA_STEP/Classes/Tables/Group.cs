@@ -7,28 +7,55 @@ using System.Text;
 namespace CA_STEP.Classes.Tables
 {
 
-    class Group : ITable
+    class Group : IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         public int ID_Client { get; set; }
+
         [Required]
-        public int ID_Course { get; set; }
+        public int ID_NameCourse { get; set; }
+
         [Required]
         public int ID_NameGroups { get; set; }
 
         [ForeignKey("ID_Client")]
         public virtual Client Clients { get; set; }
 
-        [ForeignKey("ID_Course")]
-        public virtual Course Courses { get; set; }
+        [ForeignKey("ID_NameCourse")]
+        public virtual NameCourse NameCourses { get; set; }
 
         [ForeignKey("ID_NameGroups")]
         public virtual NameGroup NameGroups { get; set; }
+        [NotMapped]
+        public string ID__Client
+        {
+            get
+            {
+                return $"{Clients.Name} {Clients.SurName}";
+            }
+        }
+        [NotMapped]
+        public string ID__NameGroup
+        {
+            get
+            {
+                return $"{NameGroups.Name} ";
+            }
+        }
+        [NotMapped]
+        public string ID__Course
+        {
+            get
+            {
+                return $"{NameCourses.Name} ";
+            }
+        }
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                new List<string> { "ID_Client", "ID_Course", "ID_NameGroups" };
+                new List<string> { "ID","ID__Client", "ID__Course", "ID__NameGroup" };
         public Group()
         {
 
@@ -36,7 +63,7 @@ namespace CA_STEP.Classes.Tables
         public Group(int id_Client, int id_Course, int id_NameGroups)
         {
             ID_Client = id_Client;
-            ID_Course = id_Course;
+            ID_NameCourse = id_Course;
             ID_NameGroups = id_NameGroups;
         }
 
@@ -44,11 +71,14 @@ namespace CA_STEP.Classes.Tables
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.ID_Client:
                     return ID_Client.ToString();
 
                 case (int)IndexProperty.ID_Course:
-                    return ID_Course.ToString();
+                    return ID_NameCourse.ToString();
 
                 case (int)IndexProperty.ID_NameGroups:
                     return ID_NameGroups.ToString();
@@ -56,9 +86,24 @@ namespace CA_STEP.Classes.Tables
             }
             return " ";
         }
+        public string TakeNavigationProperty(int idProp)
+        {
+            switch (idProp)
+            {
+                case (int)IndexNavigationProperty.ID__Client:
+                    return ID__Client.ToString();
+
+                case (int)IndexNavigationProperty.ID__Course:
+                    return ID__Course.ToString();
+
+                case (int)IndexNavigationProperty.ID__NameGroup:
+                    return ID__NameGroup.ToString();
+            }
+            return " ";
+        }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 switch (i)
                 {
@@ -67,7 +112,7 @@ namespace CA_STEP.Classes.Tables
                         break;
 
                     case (int)IndexProperty.ID_Course:
-                        ID_Course = int.Parse(value[i]);
+                        ID_NameCourse = int.Parse(value[i]);
                         break;
 
                     case (int)IndexProperty.ID_NameGroups:
@@ -85,9 +130,17 @@ namespace CA_STEP.Classes.Tables
 
         enum IndexProperty
         {
+            ID,
             ID_Client,
             ID_Course,
             ID_NameGroups,
+        }
+        enum IndexNavigationProperty
+        {
+            ID,
+            ID__Client,
+            ID__Course,
+            ID__NameGroup,
         }
     }
 }

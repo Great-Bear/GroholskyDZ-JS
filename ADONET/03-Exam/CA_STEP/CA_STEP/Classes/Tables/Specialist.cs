@@ -6,18 +6,16 @@ using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
-    class Specialist : ITable
+    class Specialist : IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         public int ID_Branches { get; set; }
         [Required]
         public int ID_Workers { get; set; }
         [Required]
-        public int ID_Position { get; set; }
-        [NotMapped]
-        public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID_Branches", "ID_Workers", "ID_Position"};
+        public int ID_Position { get; set; }      
 
         [ForeignKey("ID_Branches")]
         public virtual Branche Branches { get; set; }
@@ -27,6 +25,33 @@ namespace CA_STEP.Classes.Tables
 
         [ForeignKey("ID_Position")]
         public virtual Position Positions { get; set; }
+        [NotMapped]
+        public string ID__Branches
+        {
+            get 
+            {
+                return $"{Branches.Country} {Branches.City} {Branches.Street}";
+            }
+        }
+        [NotMapped]
+        public string ID__Workers
+        {
+            get
+            {
+                return $"{Workers.SurName} {Workers.Name}";
+            }
+        }
+        public string ID__Position
+        {
+            get
+            {
+                return $"{Positions.Name}";
+            }
+        }
+
+        [NotMapped]
+        public static List<string> NameColums { get; set; } =
+                 new List<string> { "ID", "ID__Branches", "ID__Workers", "ID__Position" };
 
         public Specialist()
         {
@@ -43,6 +68,9 @@ namespace CA_STEP.Classes.Tables
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.ID_Branches:
                     return ID_Branches.ToString();
 
@@ -51,6 +79,21 @@ namespace CA_STEP.Classes.Tables
 
                 case (int)IndexProperty.ID_Position:
                     return ID_Position.ToString();
+            }
+            return " ";
+        }
+        public string TakeNavigationProperty(int idProp)
+        {
+            switch (idProp)
+            {
+                case (int)IndexNavigationProperty.ID__Branches:
+                    return ID__Branches.ToString();
+
+                case (int)IndexNavigationProperty.ID__Position:
+                    return ID__Position.ToString();
+
+                case (int)IndexNavigationProperty.ID__Workers:
+                    return ID__Workers.ToString();
             }
             return " ";
         }
@@ -80,9 +123,17 @@ namespace CA_STEP.Classes.Tables
         }
         enum IndexProperty
         {
+            ID,
             ID_Branches,
             ID_Workers,
             ID_Position,
+        }
+        enum IndexNavigationProperty
+        {
+            ID,
+            ID__Branches,
+            ID__Workers,
+            ID__Position,
         }
 
     }

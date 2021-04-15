@@ -6,8 +6,9 @@ using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
-    class Worker :  ITable
+    class Worker :  IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [MaxLength(50)]
         [Required]
@@ -21,7 +22,8 @@ namespace CA_STEP.Classes.Tables
         public Nullable<DateTime>  DismissalDate { get; set; }
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "Name", "SurName", "DataBirth", "EmploymentDate", "DismissalDate" };
+                  new List<string> { "ID","Name", "SurName", "DataBirth", "EmploymentDate", "DismissalDate" };
+
         public Worker()
         {
 
@@ -38,19 +40,30 @@ namespace CA_STEP.Classes.Tables
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.Name:
                     return Name;
 
                 case (int)IndexProperty.SurName:
                     return SurName;
 
-                case (int)IndexProperty.DataBirth:
+                case (int)IndexProperty.DataBirth:                  
+                    if (DataBirth.HasValue == false)
+                    {
+                        return "Null";
+                    }
                     return DataBirth.ToString();
 
                 case (int)IndexProperty.EmploymentDate:
                     return EmploymentDate.ToString();
 
                 case (int)IndexProperty.DismissalDate:
+                    if (DismissalDate.HasValue == false)
+                    {
+                        return "Null";
+                    }
                     return DismissalDate.ToString();
 
             }
@@ -78,7 +91,7 @@ namespace CA_STEP.Classes.Tables
                         EmploymentDate = DateTime.Parse(value[i]);
                         break;
 
-                    case (int)IndexProperty.DismissalDate:
+                    case (int)IndexProperty.DismissalDate:                      
                         DismissalDate = DateTime.Parse(value[i]);
                         break;
 
@@ -109,8 +122,11 @@ namespace CA_STEP.Classes.Tables
             return new Worker(value[0], value[1], dataBirth, DateTime.Parse(value[3]), dismissalDate);
         }
 
+        
+
         enum IndexProperty
         {
+            ID,
             Name,
             SurName,
             DataBirth,

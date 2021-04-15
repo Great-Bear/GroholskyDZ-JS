@@ -4,20 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Text;
 
 namespace CA_STEP.Classes.Tables
 {
     [Table("ProgressStudy")]
-    class ProgressStudy : ITable
+    class ProgressStudy : IElementDB
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
         public int ID_Specialist { get; set; }
         [Required]
-        public int ID_Subjects { get; set; }
-        [Required]
         public int ID_Group { get; set; }
+        [Required]
+        public string Subject { get; set; }
         [Required]
         [Range(0,9999)]
         public int CountHours { get; set; }
@@ -25,43 +28,88 @@ namespace CA_STEP.Classes.Tables
         [ForeignKey("ID_Specialist")]
         public virtual Specialist Specialists { get; set; }
 
-        [ForeignKey("ID_Subjects")]
-        public virtual Subject Subjects { get; set; }
-
         [ForeignKey("ID_Group")]
         public virtual Group Groups { get; set; }
+        [NotMapped]
+        public string ID__Specialist {
+            get
+            {
+                return $"{Specialists.Workers.Name} {Specialists.Workers.SurName}";
+            }
+        }
+        [NotMapped]
+        public string ID__Group
+        {
+            get
+            {
+                return $"{Groups.NameGroups.Name}";
+            }
+        }
+
+
+        [NotMapped]
+        public string Specialist
+        {
+            get
+            {
+                return $"{Specialists.Workers.SurName} {Specialists.Workers.Name}";
+            }
+        }
+        [NotMapped]
+        public string Group
+        {
+            get
+            {
+                return $"{Groups.ID__NameGroup}";
+            }
+        }
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID_Specialist", "ID_Subjects", "ID_Group", "CountHours"};
+                  new List<string> { "ID","ID__Specialist", "ID__Group", "Subject", "CountHours"};
 
         public ProgressStudy()
         {
 
         }
-        public ProgressStudy(int id_Specialist, int id_Subjects, int id_Group,int countHours)
+        public ProgressStudy(int id_Specialist, int id_Group,string subject, int countHours)
         {
             ID_Specialist = id_Specialist;
-            ID_Subjects = id_Subjects;
             ID_Group = id_Group;
+            Subject = subject;
             CountHours = countHours;
         }
         public string TakeProperty(int idProp)
         {
             switch (idProp)
             {
+                case (int)IndexProperty.ID:
+                    return ID.ToString();
+
                 case (int)IndexProperty.ID_Specialist:
                     return ID_Specialist.ToString();
-
-                case (int)IndexProperty.ID_Subjects:
-                    return ID_Subjects.ToString();
 
                 case (int)IndexProperty.ID_Group:
                     return ID_Group.ToString();
 
+                case (int)IndexProperty.Subject:
+                    return Subject;
+
                 case (int)IndexProperty.CountHours:
                     return CountHours.ToString();
 
+            }
+            return " ";
+        }
+        public string TakeNavigationProperty(int idProp)
+        {
+            switch (idProp)
+            {
+                case (int)IndexNavigationProperty.ID__Group:
+                    return ID__Group.ToString();
+
+                case (int)IndexNavigationProperty.ID__Specialist:
+                    return ID__Specialist.ToString();
             }
             return " ";
         }
@@ -75,12 +123,12 @@ namespace CA_STEP.Classes.Tables
                         ID_Specialist = int.Parse(value[i]);
                         break;
 
-                    case (int)IndexProperty.ID_Subjects:
-                        ID_Subjects = int.Parse(value[i]);
-                        break;
-
                     case (int)IndexProperty.ID_Group:
                         ID_Group = int.Parse(value[i]);
+                        break;
+
+                    case (int)IndexProperty.Subject:
+                        Subject = value[i];
                         break;
 
                     case (int)IndexProperty.CountHours:
@@ -92,15 +140,21 @@ namespace CA_STEP.Classes.Tables
         }
         public object CreateNewElem(List<string> value)
         {
-
-            return new ProgressStudy(int.Parse(value[0]), int.Parse(value[1]), int.Parse(value[2]), int.Parse(value[3]));
+            return new ProgressStudy(int.Parse(value[0]), int.Parse(value[1]),value[2], int.Parse(value[3]));
         }
         enum IndexProperty
         {
+            ID,
             ID_Specialist,
-            ID_Subjects,
             ID_Group,
+            Subject,
             CountHours,
+        }
+        enum IndexNavigationProperty
+        {
+            ID,
+            ID__Specialist,
+            ID__Group,
         }
     }
 }
