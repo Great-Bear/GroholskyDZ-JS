@@ -41,6 +41,7 @@ namespace CA_STEP.Classes
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        public List<int> CountPropTables { set; get; } = new List<int>();
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

@@ -15,7 +15,8 @@ namespace CA_STEP.Classes
         public ViewModels()
         {
             ConectDB = new ModelConectDB();
-            NamesTables = ConectDB.NameTables;           
+            NamesTables = ConectDB.NameTables;
+            CountPropTables = ConectDB.CountPropTables;
         }   
         public void Remove(int indexTable,int indexRow)
         {
@@ -64,6 +65,10 @@ namespace CA_STEP.Classes
         public bool ExistsValue(int indexColum,string value)
         {
             return ConectDB.ExistsValue(indexColum, value);
+        }
+        public List<object> TakeTable(int indexTable)
+        {
+            return ConectDB.Tables[indexTable].ToListAsync().Result;
         }
     }
 }

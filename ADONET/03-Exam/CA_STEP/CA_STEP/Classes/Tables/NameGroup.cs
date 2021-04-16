@@ -43,6 +43,10 @@ namespace CA_STEP.Classes.Tables
         {
             return new NameGroup(value[0]);
         }
+        public static int CountProp()
+        {
+            return 2;
+        }
         enum IndexProperty
         {
             ID,

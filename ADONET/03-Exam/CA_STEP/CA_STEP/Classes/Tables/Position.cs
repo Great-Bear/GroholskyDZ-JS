@@ -67,6 +67,10 @@ namespace CA_STEP.Classes.Tables
         {       
             return new Position(value[0], decimal.Parse(value[1], NumberStyles.AllowDecimalPoint, CultureInfo.CreateSpecificCulture("en-GB")));
         }
+        public static int CountProp()
+        {
+            return 2;
+        }
         enum IndexProperty
         {
             ID,

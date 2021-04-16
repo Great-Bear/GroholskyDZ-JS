@@ -29,20 +29,21 @@ namespace CA_STEP.Classes.Tables
         public virtual Specialist Specialists { get; set; }
 
         [ForeignKey("ID_Group")]
-        public virtual Group Groups { get; set; }
+        public virtual NameGroup Groups { get; set; }
         [NotMapped]
-        public string ID__Specialist {
+        public string ID__Specialists
+        {
             get
             {
                 return $"{Specialists.Workers.Name} {Specialists.Workers.SurName}";
             }
         }
         [NotMapped]
-        public string ID__Group
+        public string ID__NameGroups
         {
             get
             {
-                return $"{Groups.NameGroups.Name}";
+                return $"{Groups.Name}";
             }
         }
 
@@ -60,13 +61,13 @@ namespace CA_STEP.Classes.Tables
         {
             get
             {
-                return $"{Groups.ID__NameGroup}";
+                return $"{Groups.Name}";
             }
         }
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID","ID__Specialist", "ID__Group", "Subject", "CountHours"};
+                  new List<string> { "ID","ID__Specialists", "ID__NameGroups", "Subject", "CountHours"};
 
         public ProgressStudy()
         {
@@ -105,17 +106,18 @@ namespace CA_STEP.Classes.Tables
         {
             switch (idProp)
             {
+
                 case (int)IndexNavigationProperty.ID__Group:
-                    return ID__Group.ToString();
+                    return ID__NameGroups.ToString();
 
                 case (int)IndexNavigationProperty.ID__Specialist:
-                    return ID__Specialist.ToString();
+                    return ID__Specialists.ToString();
             }
             return " ";
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 switch (i)
                 {
@@ -141,6 +143,10 @@ namespace CA_STEP.Classes.Tables
         public object CreateNewElem(List<string> value)
         {
             return new ProgressStudy(int.Parse(value[0]), int.Parse(value[1]),value[2], int.Parse(value[3]));
+        }
+        public static int CountProp()
+        {
+            return 5;
         }
         enum IndexProperty
         {

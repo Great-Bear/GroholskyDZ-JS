@@ -36,6 +36,7 @@ namespace CA_STEP.Classes.Tables
             City = city;
             Street = street;
         }
+
         public string TakeProperty(int idProp)
         {
             switch (idProp)
@@ -87,6 +88,10 @@ namespace CA_STEP.Classes.Tables
                 return true;
             }
             return false;
+        }
+        public static int CountProp()
+        {
+            return 4;
         }
         enum IndexProperty 
         {

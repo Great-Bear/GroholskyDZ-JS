@@ -34,7 +34,7 @@ namespace CA_STEP.Classes.Tables
                 case (int)IndexProperty.Name:
                     return Name;
             }
-            return " ";
+            return string.Empty;
         }
         public void EditItem(List<string> value)
         {
@@ -43,6 +43,10 @@ namespace CA_STEP.Classes.Tables
         public object CreateNewElem(List<string> value)
         {
             return new NameCourse(value[0]);
+        }
+        public static int CountProp()
+        {
+            return 2;
         }
         enum IndexProperty
         {

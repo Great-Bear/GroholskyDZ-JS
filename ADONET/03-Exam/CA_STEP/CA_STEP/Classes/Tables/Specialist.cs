@@ -38,10 +38,10 @@ namespace CA_STEP.Classes.Tables
         {
             get
             {
-                return $"{Workers.SurName} {Workers.Name}";
+                return $"{Workers.Name} {Workers.SurName}";
             }
         }
-        public string ID__Position
+        public string ID__Positions
         {
             get
             {
@@ -51,7 +51,7 @@ namespace CA_STEP.Classes.Tables
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                 new List<string> { "ID", "ID__Branches", "ID__Workers", "ID__Position" };
+                 new List<string> { "ID", "ID__Branches", "ID__Workers", "ID__Positions" };
 
         public Specialist()
         {
@@ -72,10 +72,11 @@ namespace CA_STEP.Classes.Tables
                     return ID.ToString();
 
                 case (int)IndexProperty.ID_Branches:
-                    return ID_Branches.ToString();
+                    //  return ID__Branches.ToString();
+                    return ID__Workers.ToString();
 
                 case (int)IndexProperty.ID_Workers:
-                    return ID_Workers.ToString();
+                    return ID__Workers.ToString();
 
                 case (int)IndexProperty.ID_Position:
                     return ID_Position.ToString();
@@ -90,7 +91,7 @@ namespace CA_STEP.Classes.Tables
                     return ID__Branches.ToString();
 
                 case (int)IndexNavigationProperty.ID__Position:
-                    return ID__Position.ToString();
+                    return ID__Positions.ToString();
 
                 case (int)IndexNavigationProperty.ID__Workers:
                     return ID__Workers.ToString();
@@ -99,7 +100,7 @@ namespace CA_STEP.Classes.Tables
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 switch (i)
                 {
@@ -120,6 +121,10 @@ namespace CA_STEP.Classes.Tables
         public object CreateNewElem(List<string> value)
         {
             return new Specialist(int.Parse(value[0]), int.Parse(value[1]), int.Parse(value[2]));
+        }
+        public static int CountProp()
+        {
+            return 2;
         }
         enum IndexProperty
         {

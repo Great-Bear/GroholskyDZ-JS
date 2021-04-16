@@ -29,7 +29,7 @@ namespace CA_STEP.Classes.Tables
         [ForeignKey("ID_NameGroups")]
         public virtual NameGroup NameGroups { get; set; }
         [NotMapped]
-        public string ID__Client
+        public string ID__Clients
         {
             get
             {
@@ -37,25 +37,25 @@ namespace CA_STEP.Classes.Tables
             }
         }
         [NotMapped]
-        public string ID__NameGroup
+        public string ID__NameGroups
         {
             get
             {
-                return $"{NameGroups.Name} ";
+                return $"{NameGroups.Name}";
             }
         }
         [NotMapped]
-        public string ID__Course
+        public string ID__Courses
         {
             get
             {
-                return $"{NameCourses.Name} ";
+                return $"{NameCourses.Name}";
             }
         }
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                new List<string> { "ID","ID__Client", "ID__Course", "ID__NameGroup" };
+                new List<string> { "ID","ID__Clients", "ID__Courses", "ID__NameGroups" };
         public Group()
         {
 
@@ -75,10 +75,12 @@ namespace CA_STEP.Classes.Tables
                     return ID.ToString();
 
                 case (int)IndexProperty.ID_Client:
-                    return ID_Client.ToString();
+                    // return ID__Clients.ToString();
+                    return NameGroups.Name.ToString();
 
                 case (int)IndexProperty.ID_Course:
-                    return ID_NameCourse.ToString();
+                    // return ID_NameCourse.ToString();
+                    return NameGroups.Name.ToString();
 
                 case (int)IndexProperty.ID_NameGroups:
                     return ID_NameGroups.ToString();
@@ -91,13 +93,13 @@ namespace CA_STEP.Classes.Tables
             switch (idProp)
             {
                 case (int)IndexNavigationProperty.ID__Client:
-                    return ID__Client.ToString();
+                    return ID__Clients.ToString();
 
                 case (int)IndexNavigationProperty.ID__Course:
-                    return ID__Course.ToString();
+                    return ID__Courses.ToString();
 
                 case (int)IndexNavigationProperty.ID__NameGroup:
-                    return ID__NameGroup.ToString();
+                    return ID__NameGroups.ToString();
             }
             return " ";
         }
@@ -127,7 +129,10 @@ namespace CA_STEP.Classes.Tables
             return new Group(int.Parse(value[0]), int.Parse(value[1]), int.Parse(value[2]));
         }
 
-
+        public static int CountProp()
+        {
+            return 2;
+        }
         enum IndexProperty
         {
             ID,

@@ -122,7 +122,10 @@ namespace CA_STEP.Classes.Tables
             return new Worker(value[0], value[1], dataBirth, DateTime.Parse(value[3]), dismissalDate);
         }
 
-        
+        public static int CountProp()
+        {
+            return 3;
+        }
 
         enum IndexProperty
         {

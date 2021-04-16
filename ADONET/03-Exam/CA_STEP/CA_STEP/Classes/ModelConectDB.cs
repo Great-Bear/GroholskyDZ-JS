@@ -57,6 +57,8 @@ namespace CA_STEP.Classes
         public List<DbSet> Tables { set; get; } = new List<DbSet>();
         public List<string> NameTables { set; get; } = new List<string>();
         public List<List<string>> NameColums { set; get; } = new List<List<string>>();
+
+        public List<int> CountPropTables { set; get; } = new List<int>();  
       
         public ModelConectDB() : base("Server=(local);Database=CA_STEP;Trusted_Connection=True;")
         {         
@@ -72,6 +74,19 @@ namespace CA_STEP.Classes
             NameTables.Add("NameGroups");
             NameTables.Add("Groups");
             NameTables.Add("ProgressStudy");
+
+            CountPropTables.Add(Branche.CountProp());
+            CountPropTables.Add(ContactsBranche.CountProp());
+            CountPropTables.Add(Position.CountProp());
+            CountPropTables.Add(Worker.CountProp());
+            CountPropTables.Add(Specialist.CountProp());
+            CountPropTables.Add(Subject.CountProp());
+            CountPropTables.Add(NameCourse.CountProp());
+            CountPropTables.Add(Course.CountProp());
+            CountPropTables.Add(Client.CountProp());
+            CountPropTables.Add(NameGroup.CountProp());
+            CountPropTables.Add(Group.CountProp());
+            CountPropTables.Add(ProgressStudy.CountProp());
 
             NameColums.Add(Branche.NameColums);
             NameColums.Add(ContactsBranche.NameColums);
@@ -219,6 +234,10 @@ namespace CA_STEP.Classes
                     break;
                 case (int)TypeSort.OrderByDescending:
                     CurrentList = new ObservableCollection<object>(CurrentList.OrderByDescending(a => ((IElementDB)a).TakeProperty(idProp)).ToList());
+                    if (CurrentList.Count == 0)
+                    {
+                        CurrentList = new ObservableCollection<object>(CurrentList.OrderBy(a => ((IElementDB)a).TakeNavigationProperty(idProp)).ToList());
+                    }
                     break;
                     
             }

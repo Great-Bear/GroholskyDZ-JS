@@ -37,11 +37,15 @@ namespace CA_STEP.Classes.Tables
         }
         public void EditItem(List<string> value)
         {
-            Name = value[0];
+            Name = value[1];
         }
         public object CreateNewElem(List<string> value)
         {
             return new Subject(value[0]);
+        }
+        public static int CountProp()
+        {
+            return 2;
         }
         enum IndexProperty
         {

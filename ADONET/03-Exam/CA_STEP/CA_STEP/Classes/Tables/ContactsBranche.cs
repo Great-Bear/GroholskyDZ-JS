@@ -23,7 +23,7 @@ namespace CA_STEP.Classes.Tables
         [ForeignKey("ID_Branches")]
         public virtual Branche Branches { get; set; }
         [NotMapped]
-        public string ID__Branche
+        public string ID__Branches
         {
             get
             {
@@ -42,7 +42,7 @@ namespace CA_STEP.Classes.Tables
             Phone = phone;
         }
         public static List<string> NameColums { get; set; } =
-                  new List<string> {"ID", "ID__Branche", "Web_Site", "Phone" };
+                  new List<string> {"ID", "ID__Branches", "Web_Site", "Phone" };
 
         public string TakeProperty(int idProp)
         {
@@ -67,10 +67,13 @@ namespace CA_STEP.Classes.Tables
             switch (idProp)
             {
                 case (int)IndexNavigationProperty.ID__Branche:
-                    return ID__Branche.ToString();
+                    return ID__Branches.ToString();
             }
             return " ";
+        
         }
+        [NotMapped]
+        public int CountNavigationProperty { get; set; } = 1;
         public void EditItem(List<string> value)
         {
             for (int i = 0; i < 4; i++)
@@ -102,6 +105,10 @@ namespace CA_STEP.Classes.Tables
         public object CreateNewElem(List<string> value)
         {
             return new ContactsBranche(Int32.Parse(value[0]), value[1], value[2]);
+        }
+        public static int CountProp()
+        {
+            return 1;
         }
 
         enum IndexProperty

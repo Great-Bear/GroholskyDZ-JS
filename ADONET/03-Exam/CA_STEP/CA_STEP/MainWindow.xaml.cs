@@ -109,29 +109,98 @@ namespace CA_STEP
 
              for (int i = 1; i < currNameColums.Count; i++)
              {
-                 var textBox = new TextBox();
-                 textBox.Width = 100;
-                 textBox.Height = 22;
-                 textBox.HorizontalAlignment = HorizontalAlignment.Left;
-                 textBox.VerticalAlignment = VerticalAlignment.Top;
-                 textBox.TextWrapping = TextWrapping.Wrap;
-                 var margin = new Thickness();
-                 margin.Left = PosX;
-                 margin.Top = 85;
-                 textBox.Margin = margin;
+                var nameCol = new Label();
+                nameCol.Content = currNameColums.ElementAt(i);
+                var marginlab = new Thickness();
+                marginlab.Left = PosXLabel;
+                marginlab.Top = 60;
+                nameCol.Margin = marginlab;
 
-                 var nameCol = new Label();
-                 nameCol.Content = currNameColums.ElementAt(i);
-                 var marginlab = new Thickness();
-                 marginlab.Left = PosXLabel;
-                 marginlab.Top = 60;
-                 nameCol.Margin = marginlab;
+                UIElement item;
 
+                if (currNameColums.ElementAt(i).Contains("ID__"))
+                {
+                    var textBox = new ComboBox();
+                    textBox.Width = 100;
+                    textBox.Height = 22;
+                    textBox.HorizontalAlignment = HorizontalAlignment.Left;
+                    textBox.VerticalAlignment = VerticalAlignment.Top;
+                    var margin = new Thickness();
+                    margin.Left = PosX;
+                    margin.Top = 85;
+                    textBox.Margin = margin;
+                    
+                    int indexRefTable = 0;
+                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
+                    {
+                        if (indexRefTable == 10)
+                        {
+                            int a = 0;
+                        }
+                        if (item2 == currNameColums.ElementAt(i).Substring(4, currNameColums.ElementAt(i).Length - 4))
+                        {
+                            break;
+                        }
+                        indexRefTable++;
+                    }
+                    if(indexRefTable == 10)
+                    {
+                        int a = 0;
+                    }
+                    var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
+
+                    for (int j = 0; j < table.Count; j++)
+                    {
+                        string value = string.Empty;
+                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
+                        {
+                           value += ((IElementDB)table[j]).TakeProperty(q);
+                            if(((IElementDB)table[j]).TakeProperty(q) != string.Empty)
+                            {
+                                value += " ";
+                            }
+                        }
+                        bool can = true;
+                        foreach (var item3 in textBox.Items)
+                        {
+                            if ((string)item3 == (string)value)
+                            {
+                                can = false;
+                            }
+                        }
+                        if(can == true)
+                            textBox.Items.Add(value);
+
+                        if (textBox.Width <= value.Length * 7)
+                        {
+                            int diff = value.Length * 7 - (int)textBox.Width;
+                            PosX += diff;
+                            PosXLabel += diff;
+                            textBox.Width = value.Length * 7;
+                        }
+                    }
+                    item = textBox;
+                }
+                else
+                {
+                    var textBox = new TextBox();
+                    textBox.Width = 100;
+                    textBox.Height = 22;
+                    textBox.HorizontalAlignment = HorizontalAlignment.Left;
+                    textBox.VerticalAlignment = VerticalAlignment.Top;
+                    textBox.TextWrapping = TextWrapping.Wrap;
+                    var margin = new Thickness();
+                    margin.Left = PosX;
+                    margin.Top = 85;
+                    textBox.Margin = margin;
+                    
+                    item = textBox;
+                }
                 PosX += 110;
                 PosXLabel += 110;
 
                 AddForm.Children.Add(nameCol);
-                AddForm.Children.Add(textBox);
+                AddForm.Children.Add(item);
              }
              var clearBut = new Button();
              clearBut.Content = "ClearField";
@@ -152,13 +221,39 @@ namespace CA_STEP
             if (AddForm.Children.Count != 0 && 
                 dataTable.SelectedIndex >= 0)
             {
-                int indexPropCurrTable = 1;
+                int countIDColums = 0;
+                foreach (var item in ((ViewModels)DataContext).TakeCurrectNameColums(NameTablesCombo.SelectedIndex))
+                {
+                    if(item.Contains("ID_") == true)
+                    {
+                        countIDColums++;
+                    }
+                } 
+
+                int indexPropCurrTable = 1 + countIDColums;
+                int ab = 1;
                 foreach (var item in AddForm.Children)
                 {
                     if (item is TextBox == true)
                     {
                         ((TextBox)item).Text = ((IElementDB)dataTable.SelectedValue).TakeProperty(indexPropCurrTable);
-                        indexPropCurrTable++;
+                        indexPropCurrTable++;                   
+                    }
+                    if (item is ComboBox == true)
+                    {
+                       if(ab == 2)
+                        {
+                            int h = 0;
+                        }
+                        var a = ((IElementDB)dataTable.SelectedItem).TakeNavigationProperty(ab) + " ";
+                        foreach (var item2 in ((ComboBox)item).Items)
+                        {
+                            if((string)item2 == a)
+                            {
+                                ((ComboBox)item).SelectedItem = item2;
+                            }
+                        }
+                        ab++;
                     }
                 }
             }
@@ -180,6 +275,7 @@ namespace CA_STEP
         private void Add_Line_Click(object sender, RoutedEventArgs e)
         {
             List<string> values = new List<string>();
+            int index = 1;
             foreach (var item in AddForm.Children)
             {
                 if(item is TextBox == true)
@@ -190,7 +286,7 @@ namespace CA_STEP
                         return;
                     }
                     if (string.Compare(((TextBox)item).Text, "null", StringComparison.InvariantCultureIgnoreCase) == 0)
-                    {                       
+                    {
                         values.Add(null);
                     }
                     else
@@ -199,6 +295,56 @@ namespace CA_STEP
                     }
                         ((TextBox)item).Text = string.Empty;
                 }
+                else if(item is ComboBox)
+                {
+                    int indexRefTable = 0;
+                    var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
+
+                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
+                    {
+                        if(indexRefTable == 10)
+                        {
+                            int a = 0;
+                        }
+
+                        if (item2 == currNameColums.ElementAt(index).Substring(4, currNameColums.ElementAt(index).Length - 4))
+                        {
+                            break;
+                        }
+                        indexRefTable++;
+                    }
+                    var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
+
+                    for (int j = 0; j < table.Count; j++)
+                    {
+                        string value = string.Empty;
+                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
+                        {
+                            value += ((IElementDB)table[j]).TakeProperty(q);
+                            if (((IElementDB)table[j]).TakeProperty(q) != string.Empty)
+                            {
+                                value += " ";
+                            }
+                        }
+                        if(value == (string)((ComboBox)item).SelectedValue)
+                        {
+                            if(indexRefTable == 7)
+                            {
+                                values.Add(((Course)table[j]).ID_NameCourse.ToString());
+                                break;
+                            }
+                            else if (indexRefTable == 10)
+                            {
+                                values.Add(((Group)table[j]).ID_NameGroups.ToString());
+                                break;
+                            }
+
+                            values.Add(((IElementDB)table[j]).ID.ToString());
+                            break;
+                        }
+                    }
+                    index++;
+                }             
             }
             ((ViewModels)DataContext).AddNewItem(NameTablesCombo.SelectedIndex,values);
             dataTable.SelectedIndex = -1;
@@ -220,6 +366,7 @@ namespace CA_STEP
         private void Edit_Line_Click(object sender, RoutedEventArgs e)
         {
             List<string> values = new List<string>();
+            int index = 1;
             values.Add(" ");
             foreach (var item in AddForm.Children)
             {
@@ -231,6 +378,45 @@ namespace CA_STEP
                     }
                     values.Add(((TextBox)item).Text);
                     ((TextBox)item).Text = string.Empty;
+                }
+                if(item is ComboBox) 
+                {
+                    int indexRefTable = 0;
+                    var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
+
+                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
+                    {
+                        if (item2 == currNameColums.ElementAt(index).Substring(4, currNameColums.ElementAt(index).Length - 4))
+                        {
+                            break;
+                        }
+                        indexRefTable++;
+                    }
+                    var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
+
+                    for (int j = 0; j < table.Count; j++)
+                    {
+                        string value = string.Empty;
+                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
+                        {
+                            value += ((IElementDB)table[j]).TakeProperty(q);
+                            if (((IElementDB)table[j]).TakeProperty(q) != string.Empty)
+                            {
+                                value += " ";
+                            }
+                        }
+                        if (value == (string)((ComboBox)item).SelectedValue)
+                        {
+                            if (indexRefTable == 7)
+                            {
+                                values.Add(((Course)table[j]).ID_NameCourse.ToString());
+                                break;
+                            }
+                            values.Add(((IElementDB)table[j]).ID.ToString());
+                            break;
+                        }
+                    }
+                    index++;
                 }
             }
             ((ViewModels)DataContext).EditItem(NameTablesCombo.SelectedIndex,

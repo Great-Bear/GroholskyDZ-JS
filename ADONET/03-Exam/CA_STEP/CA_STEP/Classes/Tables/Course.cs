@@ -25,7 +25,7 @@ namespace CA_STEP.Classes.Tables
         [ForeignKey("ID_Subject")]
         public virtual Subject Subjects { get; set; }      
         [NotMapped]
-        public string ID__NameCourse
+        public string ID__NameCourses
         {
             get
             {
@@ -33,7 +33,7 @@ namespace CA_STEP.Classes.Tables
             }
         }
         [NotMapped]
-        public string ID__Subject
+        public string ID__Subjects
         {
             get
             {
@@ -43,7 +43,7 @@ namespace CA_STEP.Classes.Tables
 
         [NotMapped]
         public static List<string> NameColums { get; set; } =
-                  new List<string> { "ID", "ID__NameCourse", "ID__Subject", "CountHours", "Describe" };
+                  new List<string> { "ID", "ID__NameCourses", "ID__Subjects", "CountHours", "Describe" };
 
         public Course()
         {
@@ -65,7 +65,8 @@ namespace CA_STEP.Classes.Tables
                     return ID.ToString();
 
                 case (int)IndexProperty.ID_NameCourse:
-                    return ID_NameCourse.ToString();
+                    //    return ID_NameCourse.ToString();
+                    return ID__NameCourses.ToString();
 
                 case (int)IndexProperty.ID_Subject:
                     return ID_Subject.ToString();
@@ -84,10 +85,10 @@ namespace CA_STEP.Classes.Tables
             switch (idProp)
             {
                 case 1:
-                    return ID__NameCourse.ToString();
+                    return ID__NameCourses.ToString();
 
                 case 2:
-                    return ID__Subject.ToString();
+                    return ID__Subjects.ToString();
             }
             return " ";
         }
@@ -120,7 +121,10 @@ namespace CA_STEP.Classes.Tables
         {
             return new Course(Int32.Parse(value[0]), Int32.Parse(value[1]), Int32.Parse(value[2]), value[3]);
         }
-
+        public static int CountProp()
+        {
+            return 2;
+        }
         enum IndexProperty
         {
             ID,

@@ -79,7 +79,10 @@ namespace CA_STEP.Classes.Tables
             return new Client(value[0], value[1], value[2]);
         }
 
-
+        public static int CountProp()
+        {
+            return 3;
+        }
         enum IndexProperty
         {
             ID,
