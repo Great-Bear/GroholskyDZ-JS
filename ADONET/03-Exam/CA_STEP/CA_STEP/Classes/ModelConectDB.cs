@@ -135,11 +135,14 @@ namespace CA_STEP.Classes
                }
             }*/
         }
-        public void Remove(int idTable, int idElem)
+        public void Remove(int idTable, List<int> indexRows)
         {                   
             try
             {
-                Tables[idTable].Remove(Tables[idTable].Find(idElem));
+                foreach (var item in indexRows)
+                {
+                    Tables[idTable].Remove(Tables[idTable].Find(item));
+                }         
                 SaveChanges();
                 AllSelect(idTable);
             }

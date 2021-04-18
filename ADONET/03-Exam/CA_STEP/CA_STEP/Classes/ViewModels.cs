@@ -18,9 +18,9 @@ namespace CA_STEP.Classes
             NamesTables = ConectDB.NameTables;
             CountPropTables = ConectDB.CountPropTables;
         }   
-        public void Remove(int indexTable,int indexRow)
+        public void Remove(int indexTable,List<int> indexRows)
         {
-             ConectDB.Remove(indexTable,indexRow);
+             ConectDB.Remove(indexTable, indexRows);
              UpdateCurrentTable();
         }
 

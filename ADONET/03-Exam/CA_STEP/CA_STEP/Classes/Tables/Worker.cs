@@ -52,7 +52,7 @@ namespace CA_STEP.Classes.Tables
                 case (int)IndexProperty.DataBirth:                  
                     if (DataBirth.HasValue == false)
                     {
-                        return "Null";
+                        return string.Empty;
                     }
                     return DataBirth.ToString();
 
@@ -62,7 +62,7 @@ namespace CA_STEP.Classes.Tables
                 case (int)IndexProperty.DismissalDate:
                     if (DismissalDate.HasValue == false)
                     {
-                        return "Null";
+                        return string.Empty;
                     }
                     return DismissalDate.ToString();
 

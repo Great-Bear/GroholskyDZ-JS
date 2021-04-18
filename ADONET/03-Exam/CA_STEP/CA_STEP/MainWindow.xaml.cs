@@ -80,8 +80,12 @@ namespace CA_STEP
                             MessageBoxButton.YesNoCancel,MessageBoxImage.Warning);
             if(action == MessageBoxResult.Yes) 
             {
-                ((ViewModels)DataContext).Remove(NameTablesCombo.SelectedIndex,
-                                           ((Classes.Tables.IElementDB)dataTable.SelectedValue).ID);
+               var IDdeleteItems = new List<int>();
+               foreach (var item in dataTable.SelectedItems)
+               {
+                   IDdeleteItems.Add(((IElementDB)item).ID);
+               }
+               ((ViewModels)DataContext).Remove(NameTablesCombo.SelectedIndex,IDdeleteItems);
             }   
             
         }
@@ -92,6 +96,10 @@ namespace CA_STEP
                 if(item is TextBox)
                 {
                     ((TextBox)item).Text = string.Empty;
+                }
+                if (item is ComboBox)
+                {
+                    ((ComboBox)item).SelectedIndex = -1;
                 }
             }  
         }
@@ -107,79 +115,54 @@ namespace CA_STEP
             int PosXLabel = 30;
             AddForm.Children.Clear();
 
-             for (int i = 1; i < currNameColums.Count; i++)
+             for (int nameColunIndex = 1; nameColunIndex < currNameColums.Count; nameColunIndex++)
              {
                 var nameCol = new Label();
-                nameCol.Content = currNameColums.ElementAt(i);
+                nameCol.Content = currNameColums.ElementAt(nameColunIndex).Replace("ID__", "");
                 var marginlab = new Thickness();
                 marginlab.Left = PosXLabel;
                 marginlab.Top = 60;
                 nameCol.Margin = marginlab;
 
-                UIElement item;
+                UIElement containerSelectedDataColum;
 
-                if (currNameColums.ElementAt(i).Contains("ID__"))
+                if (currNameColums.ElementAt(nameColunIndex).Contains("ID__"))
                 {
-                    var textBox = new ComboBox();
-                    textBox.Width = 100;
-                    textBox.Height = 22;
-                    textBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    textBox.VerticalAlignment = VerticalAlignment.Top;
+                    var comboBox = new ComboBox();
+                    comboBox.Width = 100;
+                    comboBox.Height = 22;
+                    comboBox.HorizontalAlignment = HorizontalAlignment.Left;
+                    comboBox.VerticalAlignment = VerticalAlignment.Top;
                     var margin = new Thickness();
                     margin.Left = PosX;
                     margin.Top = 85;
-                    textBox.Margin = margin;
+                    comboBox.Margin = margin;
                     
-                    int indexRefTable = 0;
-                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
-                    {
-                        if (indexRefTable == 10)
-                        {
-                            int a = 0;
-                        }
-                        if (item2 == currNameColums.ElementAt(i).Substring(4, currNameColums.ElementAt(i).Length - 4))
-                        {
-                            break;
-                        }
-                        indexRefTable++;
-                    }
-                    if(indexRefTable == 10)
-                    {
-                        int a = 0;
-                    }
+                    int indexRefTable = TakeIndexRefTable(currNameColums.ElementAt(nameColunIndex).Substring(4, currNameColums.ElementAt(nameColunIndex).Length - 4));
                     var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
 
-                    for (int j = 0; j < table.Count; j++)
+                    for (int lineTableIndex = 0; lineTableIndex < table.Count; lineTableIndex++)
                     {
-                        string value = string.Empty;
-                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
-                        {
-                           value += ((IElementDB)table[j]).TakeProperty(q);
-                            if(((IElementDB)table[j]).TakeProperty(q) != string.Empty)
-                            {
-                                value += " ";
-                            }
-                        }
-                        bool can = true;
-                        foreach (var item3 in textBox.Items)
-                        {
-                            if ((string)item3 == (string)value)
-                            {
-                                can = false;
-                            }
-                        }
-                        if(can == true)
-                            textBox.Items.Add(value);
+                        string value = TakeValueTable(indexRefTable, lineTableIndex);
+                        
+                        if(HasComboValue(comboBox,value) == false)
+                            comboBox.Items.Add(value);
 
-                        if (textBox.Width <= value.Length * 7)
+                        if (comboBox.Width <= value.Length * 7)
                         {
-                            int diff = value.Length * 7 - (int)textBox.Width;
+                            int diff = value.Length * 7 - (int)comboBox.Width;
                             PosX += diff;
                             PosXLabel += diff;
-                            textBox.Width = value.Length * 7;
+                            comboBox.Width = value.Length * 7;
                         }
                     }
-                    item = textBox;
+
+                    if(comboBox.Items.Count != 0)
+                    {
+                        comboBox.SelectedIndex = 0;
+                    }
+
+                    containerSelectedDataColum = comboBox;
                 }
                 else
                 {
@@ -193,14 +176,14 @@ namespace CA_STEP
                     margin.Left = PosX;
                     margin.Top = 85;
                     textBox.Margin = margin;
-                    
-                    item = textBox;
+
+                    containerSelectedDataColum = textBox;
                 }
                 PosX += 110;
                 PosXLabel += 110;
 
                 AddForm.Children.Add(nameCol);
-                AddForm.Children.Add(item);
+                AddForm.Children.Add(containerSelectedDataColum);
              }
              var clearBut = new Button();
              clearBut.Content = "ClearField";
@@ -215,6 +198,31 @@ namespace CA_STEP
              marginBut.Top = 10;
              clearBut.Margin = marginBut;
              AddForm.Children.Add(clearBut);
+        }
+        private string TakeValueTable(int tableIndex, int lineTableIndex)
+        {
+            var table = ((ViewModels)DataContext).TakeTable(tableIndex);
+            int countPropTable = ((ViewModels)DataContext).CountPropTables[tableIndex];
+            string value = string.Empty;
+            for (int columIndex = 1; columIndex < countPropTable; columIndex++)
+            {
+                if (((IElementDB)table[lineTableIndex]).TakeProperty(columIndex) != string.Empty)
+                {
+                    value += ((IElementDB)table[lineTableIndex]).TakeProperty(columIndex) + " ";
+                }
+            }
+            return value;
+        }
+        private bool HasComboValue(ComboBox comboBox, string value)
+        {
+            foreach (var valueCombo in comboBox.Items)
+            {
+                if ((string)valueCombo == (string)value)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public void FillForm()
         {
@@ -231,7 +239,7 @@ namespace CA_STEP
                 } 
 
                 int indexPropCurrTable = 1 + countIDColums;
-                int ab = 1;
+                int indexNavigationProp = 1;
                 foreach (var item in AddForm.Children)
                 {
                     if (item is TextBox == true)
@@ -241,19 +249,9 @@ namespace CA_STEP
                     }
                     if (item is ComboBox == true)
                     {
-                       if(ab == 2)
-                        {
-                            int h = 0;
-                        }
-                        var a = ((IElementDB)dataTable.SelectedItem).TakeNavigationProperty(ab) + " ";
-                        foreach (var item2 in ((ComboBox)item).Items)
-                        {
-                            if((string)item2 == a)
-                            {
-                                ((ComboBox)item).SelectedItem = item2;
-                            }
-                        }
-                        ab++;
+                        var valueProp = ((IElementDB)dataTable.SelectedItem).TakeNavigationProperty(indexNavigationProp) + " ";
+                            ((ComboBox)item).SelectedItem = valueProp;
+                        indexNavigationProp++;
                     }
                 }
             }
@@ -270,84 +268,27 @@ namespace CA_STEP
 
             ((ViewModels)DataContext).AllSelect(NameTablesCombo.SelectedIndex);
 
-            CreateForm(1);
+            CreateForm();
         }
         private void Add_Line_Click(object sender, RoutedEventArgs e)
         {
-            List<string> values = new List<string>();
-            int index = 1;
-            foreach (var item in AddForm.Children)
-            {
-                if(item is TextBox == true)
-                {            
-                    if (((TextBox)item).Text.Length == 0)
-                    {
-                        MessageBox.Show("Don`t all field is full");
-                        return;
-                    }
-                    if (string.Compare(((TextBox)item).Text, "null", StringComparison.InvariantCultureIgnoreCase) == 0)
-                    {
-                        values.Add(null);
-                    }
-                    else
-                    {
-                        values.Add(((TextBox)item).Text);
-                    }
-                        ((TextBox)item).Text = string.Empty;
-                }
-                else if(item is ComboBox)
-                {
-                    int indexRefTable = 0;
-                    var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
-
-                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
-                    {
-                        if(indexRefTable == 10)
-                        {
-                            int a = 0;
-                        }
-
-                        if (item2 == currNameColums.ElementAt(index).Substring(4, currNameColums.ElementAt(index).Length - 4))
-                        {
-                            break;
-                        }
-                        indexRefTable++;
-                    }
-                    var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
-
-                    for (int j = 0; j < table.Count; j++)
-                    {
-                        string value = string.Empty;
-                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
-                        {
-                            value += ((IElementDB)table[j]).TakeProperty(q);
-                            if (((IElementDB)table[j]).TakeProperty(q) != string.Empty)
-                            {
-                                value += " ";
-                            }
-                        }
-                        if(value == (string)((ComboBox)item).SelectedValue)
-                        {
-                            if(indexRefTable == 7)
-                            {
-                                values.Add(((Course)table[j]).ID_NameCourse.ToString());
-                                break;
-                            }
-                            else if (indexRefTable == 10)
-                            {
-                                values.Add(((Group)table[j]).ID_NameGroups.ToString());
-                                break;
-                            }
-
-                            values.Add(((IElementDB)table[j]).ID.ToString());
-                            break;
-                        }
-                    }
-                    index++;
-                }             
-            }
+            List<string> values = TakeInputValues();
             ((ViewModels)DataContext).AddNewItem(NameTablesCombo.SelectedIndex,values);
             dataTable.SelectedIndex = -1;
+        }
+
+        private int TakeIndexRefTable(string nameColum)
+        {
+            int indexRefTable = 0;
+            foreach (var nameTable in ((ViewModels)DataContext).NamesTables)
+            {
+                if (nameTable == nameColum)
+                {
+                    break;
+                }
+                indexRefTable++;
+            }
+            return indexRefTable;
         }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
@@ -365,68 +306,57 @@ namespace CA_STEP
         }
         private void Edit_Line_Click(object sender, RoutedEventArgs e)
         {
+            List<string> values = TakeInputValues();
+            values.Insert(0, string.Empty);
+            ((ViewModels)DataContext).EditItem(NameTablesCombo.SelectedIndex,
+                                              ((Classes.Tables.IElementDB)dataTable.SelectedValue).ID, values);
+        }
+        private List<string> TakeInputValues()
+        {
             List<string> values = new List<string>();
-            int index = 1;
-            values.Add(" ");
+            int indexColum = 1;
             foreach (var item in AddForm.Children)
             {
                 if (item is TextBox == true)
                 {
-                    if (((TextBox)item).Text.Length == 0)
+                    if (((TextBox)item).Text.Length != 0)
                     {
-                        return;
+                        values.Add(((TextBox)item).Text);
+                        ((TextBox)item).Text = string.Empty;
                     }
-                    values.Add(((TextBox)item).Text);
-                    ((TextBox)item).Text = string.Empty;
-                }
-                if(item is ComboBox) 
-                {
-                    int indexRefTable = 0;
-                    var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
+                    else
+                    {
+                        values.Add(null);
+                    }
 
-                    foreach (var item2 in ((ViewModels)DataContext).NamesTables)
-                    {
-                        if (item2 == currNameColums.ElementAt(index).Substring(4, currNameColums.ElementAt(index).Length - 4))
-                        {
-                            break;
-                        }
-                        indexRefTable++;
-                    }
+                }
+                if (item is ComboBox)
+                {
+                    var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
+                    int indexRefTable = TakeIndexRefTable(currNameColums.ElementAt(indexColum).Substring(4, currNameColums.ElementAt(indexColum).Length - 4));
+
                     var table = ((ViewModels)DataContext).TakeTable(indexRefTable);
 
-                    for (int j = 0; j < table.Count; j++)
+                    for (int lineTableIndex = 0; lineTableIndex < table.Count; lineTableIndex++)
                     {
-                        string value = string.Empty;
-                        for (int q = 1; q < ((ViewModels)DataContext).CountPropTables[indexRefTable]; q++)
-                        {
-                            value += ((IElementDB)table[j]).TakeProperty(q);
-                            if (((IElementDB)table[j]).TakeProperty(q) != string.Empty)
-                            {
-                                value += " ";
-                            }
-                        }
+                        string value = TakeValueTable(indexRefTable, lineTableIndex);
+
                         if (value == (string)((ComboBox)item).SelectedValue)
                         {
-                            if (indexRefTable == 7)
-                            {
-                                values.Add(((Course)table[j]).ID_NameCourse.ToString());
-                                break;
-                            }
-                            values.Add(((IElementDB)table[j]).ID.ToString());
+                            values.Add(((IElementDB)table[lineTableIndex]).ID.ToString());
+                            ((ComboBox)item).SelectedIndex = -1;
                             break;
                         }
                     }
-                    index++;
+                    indexColum++;
                 }
             }
-            ((ViewModels)DataContext).EditItem(NameTablesCombo.SelectedIndex,
-                                              ((Classes.Tables.IElementDB)dataTable.SelectedValue).ID, values);
+            return values;
         }
         private void dataTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FillForm();
         }
-
         private void Button_Where_Click(object sender, RoutedEventArgs e)
         {          
             ((ViewModels)DataContext).Where(NameTablesCombo.SelectedIndex, NameTableColumn.SelectedIndex, ValueWhere.Text);

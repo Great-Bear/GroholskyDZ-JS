@@ -48,23 +48,24 @@ namespace CA_STEP.Classes.Tables
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 2; i++)
+            value[2] = value[2].Replace(',', '.');
+            for (int i = 0; i < 3; i++)
             {
                 switch (i)
                 {
-
                     case (int)IndexProperty.Name:
                         Name = value[i];
                         break;
 
                     case (int)IndexProperty.RateHour:
-                        RateHour = decimal.Parse(value[i]);
+                        RateHour = decimal.Parse(value[i], NumberStyles.AllowDecimalPoint, CultureInfo.CreateSpecificCulture("en-GB"));
                         break;
                 }
             }
         }
         public object CreateNewElem(List<string> value)
-        {       
+        {
+            value[1] = value[1].Replace(',', '.');
             return new Position(value[0], decimal.Parse(value[1], NumberStyles.AllowDecimalPoint, CultureInfo.CreateSpecificCulture("en-GB")));
         }
         public static int CountProp()
