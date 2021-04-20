@@ -75,11 +75,9 @@ namespace CA_STEP.Classes.Tables
                     return ID.ToString();
 
                 case (int)IndexProperty.ID_Client:
-                    // return ID__Clients.ToString();
                     return NameGroups.Name.ToString();
 
                 case (int)IndexProperty.ID_Course:
-                    // return ID_NameCourse.ToString();
                     return NameGroups.Name.ToString();
 
                 case (int)IndexProperty.ID_NameGroups:

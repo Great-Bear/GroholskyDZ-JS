@@ -14,7 +14,6 @@
         <Button Content="Add line" Name="AddNewLine" Visibility="Hidden"  HorizontalAlignment="Left" Margin="320,10,0,0" Width="58" VerticalAlignment="Top" Click="Add_Line_Click"/>
         <Button Content="Edit" Name="Edit" Click="Edit_Click" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="58"/>
         <Button Content="Edit line" Name="EditLine" Visibility="Hidden" Click="Edit_Line_Click" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="58"/>
-        <ComboBox Name="ComboTest" HorizontalAlignment="Left" Margin="609,10,0,0" VerticalAlignment="Top" Width="120"/>
         <Grid x:Name="AddForm" VerticalAlignment="Top" HorizontalAlignment="Left"  Height="140" MaxHeight="140" MinHeight="140" Width="800">
         </Grid>
         <Grid x:Name="SelectOptionsGrid" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left"  Height="140" MaxHeight="140" MinHeight="140" Width="800" >

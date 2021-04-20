@@ -72,7 +72,6 @@ namespace CA_STEP.Classes.Tables
                     return ID.ToString();
 
                 case (int)IndexProperty.ID_Branches:
-                    //  return ID__Branches.ToString();
                     return ID__Workers.ToString();
 
                 case (int)IndexProperty.ID_Workers:

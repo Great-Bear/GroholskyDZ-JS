@@ -71,7 +71,7 @@ namespace CA_STEP.Classes.Tables
         }
         public void EditItem(List<string> value)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 switch (i)
                 {

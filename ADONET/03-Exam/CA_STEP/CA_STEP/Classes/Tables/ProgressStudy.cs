@@ -134,7 +134,7 @@ namespace CA_STEP.Classes.Tables
                         break;
 
                     case (int)IndexProperty.CountHours:
-                            CountHours = int.Parse(value[i]);
+                        CountHours = int.Parse(value[i]);
                         break;
 
                 }

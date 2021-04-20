@@ -156,12 +156,6 @@ namespace CA_STEP
                             comboBox.Width = value.Length * 7;
                         }
                     }
-
-                    if(comboBox.Items.Count != 0)
-                    {
-                        comboBox.SelectedIndex = 0;
-                    }
-
                     containerSelectedDataColum = comboBox;
                 }
                 else
@@ -273,6 +267,15 @@ namespace CA_STEP
         private void Add_Line_Click(object sender, RoutedEventArgs e)
         {
             List<string> values = TakeInputValues();
+            if(values == null)
+            {
+                if (dataTable.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Please choice value comboBox", "Delete Element",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
             ((ViewModels)DataContext).AddNewItem(NameTablesCombo.SelectedIndex,values);
             dataTable.SelectedIndex = -1;
         }
@@ -306,6 +309,12 @@ namespace CA_STEP
         }
         private void Edit_Line_Click(object sender, RoutedEventArgs e)
         {
+            if (dataTable.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please choice elemen for edit", "Delete Element",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             List<string> values = TakeInputValues();
             values.Insert(0, string.Empty);
             ((ViewModels)DataContext).EditItem(NameTablesCombo.SelectedIndex,
@@ -332,6 +341,10 @@ namespace CA_STEP
                 }
                 if (item is ComboBox)
                 {
+                    if(((ComboBox)item).SelectedIndex < 0)
+                    {
+                        return null;
+                    }
                     var currNameColums = ((ViewModels)DataContext).CurrectNameColums;
                     int indexRefTable = TakeIndexRefTable(currNameColums.ElementAt(indexColum).Substring(4, currNameColums.ElementAt(indexColum).Length - 4));
 
