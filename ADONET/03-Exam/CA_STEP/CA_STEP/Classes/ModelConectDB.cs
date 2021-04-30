@@ -114,26 +114,25 @@ namespace CA_STEP.Classes
             Tables.Add(Groups);
             Tables.Add(ProgressStudys);
 
-            foreach (var item in Tables)
+          /*  foreach (var item in Tables)
             {
                 item.Load();
-            }
-
-            CurrentList = new ObservableCollection<object>(Branches.ToList());
-
-         /*  var tasks = new List<Task>();
-           foreach (var item in Tables)
-           {               
-              tasks.Add(item.LoadAsync());
-           }
-
-           for (int i = 0; i < tasks.Count; i++)
-           {
-               if(tasks[i].Status == TaskStatus.Running)
-               {
-                   i--;
-               }
             }*/
+
+              var tasks = new List<Task>();
+              foreach (var item in Tables)
+              {               
+              
+                tasks.Add(Task.Run(item.Load));
+              }
+              for (int i = 0; i < tasks.Count; )
+              {
+                  if (tasks[i].Status == TaskStatus.RanToCompletion)
+                  {
+                      i++;
+                  }
+              }
+            CurrentList = new ObservableCollection<object>(Branches.ToList());
         }
         public void Remove(int idTable, List<int> indexRows)
         {                   
