@@ -15,6 +15,7 @@ namespace _06_Orders.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.MinDate = DateTime.Now.GetDateTimeFormats()[4];
             return View();
         }
         public IActionResult SuccessOrder()

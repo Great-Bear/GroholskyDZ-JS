@@ -66,7 +66,7 @@ namespace _05_Registration.Controllers
                 formatter.Serialize(fs, ListUsers);
             }
 
-            return "Access opearation";
+            return "Access operation";
         }
         public IActionResult SingIN()
         {

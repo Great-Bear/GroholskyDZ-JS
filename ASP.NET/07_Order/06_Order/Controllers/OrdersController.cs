@@ -26,6 +26,7 @@ namespace _06_Order.Controllers
       
         public IActionResult Create()
         {
+            ViewBag.MinDate = DateTime.Now.GetDateTimeFormats()[4];
             return View();
         }
 
